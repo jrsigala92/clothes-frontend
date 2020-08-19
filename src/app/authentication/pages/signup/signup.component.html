@@ -1,0 +1,21 @@
+<h2>Registrar nuevo usuario</h2>
+<form [formGroup]="form" (submit)="signup()">
+    <div>
+        <input type="text" name="name" formControlName="name" placeholder="Nombre">
+        <span *ngIf="form.controls.name.errors"> Este campo es requerido</span>
+    </div>
+    <div>
+        <input type="email" name="name" formControlName="username" placeholder="nombre de ususario">
+    </div>
+    <div>
+        <input type="password" name="name" formControlName="password" placeholder="contrase;a">
+    </div>
+    <div>
+        <input type="password" name="confirmation" formControlName="confirmPassword" placeholder="confirmar contrase;a">
+    </div>
+    <span *ngIf="form.errors">Las contrase;as no coinciden</span>
+    <span>{{form.valid}}</span>
+    <button>Guardar</button>
+
+
+</form>

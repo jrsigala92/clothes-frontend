@@ -1,0 +1,9 @@
+<input type="text" (keyup)="filterData($event.target.value)">
+<table>
+    <tr>
+        <th *ngFor="let col of columns">{{col.title}}</th>
+    </tr>
+    <tr *ngFor="let item of filteredData" (click)="selectItem(item)">
+        <td *ngFor="let col of columns">{{item[col.field]}}</td>
+    </tr>
+</table>
