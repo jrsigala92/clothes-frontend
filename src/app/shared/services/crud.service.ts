@@ -16,7 +16,7 @@ export class CrudService {
   }
 
   getElement(id:number):Observable<any> {
-    return this.httpService.get(this.apiUrl + this.endpoint);
+    return this.httpService.get(this.apiUrl + this.endpoint +  `/${id}` );
   }
 
   insert(data:any):Observable<any> {
@@ -24,6 +24,6 @@ export class CrudService {
   }
 
   save(data:any):Observable<any> {
-    return this.httpService.put(this.apiUrl, this.endpoint);
+    return this.httpService.put(this.apiUrl + this.endpoint, data);
   }
 }

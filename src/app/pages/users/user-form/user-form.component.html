@@ -1,1 +1,33 @@
-<p>user-form works!</p>
+<h3>Datos del usuario:</h3>
+<p>El usuario seleccionado es</p>
+<p *ngIf="user" >{{user.email}}</p>
+
+
+<form [formGroup]="form" (submit)="saveUser()">
+    <p> es valido? {{form.valid}}</p>
+    <div>
+        <input type="text" name="nombre" formControlName="firstName" [(ngModel)] = "user.firstName">
+        <span *ngIf="form.controls.firstName.errors && form.controls.firstName.dirty">
+            {{getErrorMessage('required')}}
+        </span>
+    </div>
+    <div>
+        <input type="text" name="nombreusuario" formControlName="lastName" [(ngModel)] = "user.lastName">
+        <!-- {{form.controls.username.valid}} -->
+        <span *ngIf="form.controls.lastName.errors && form.controls.lastName.dirty">
+            {{form.controls.lastName.errors.required ?  getErrorMessage('required') : getErrorMessage('minLength')}}
+        </span>
+    </div>
+    <div>
+        <input type="email" name="correo" formControlName="email" [(ngModel)] = "user.email">
+        <span *ngIf="form.controls.email.errors && form.controls.email.dirty">
+            {{form.controls.email.errors.required ? getErrorMessage('required') : getErrorMessage('email')}}
+        </span>
+        <!-- {{form.controls.email.valid}} -->
+    </div>
+
+    <button [disabled]="form.invalid" >Guardar</button>
+</form>
+<p *ngIf="isLoading">Cargando...</p>
+
+<button (click) = "goBack()">Regresar</button>
