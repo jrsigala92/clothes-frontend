@@ -23,7 +23,8 @@ export class HttpService {
 
   post(url:string, data:any){
       
-    const token = this.authService.getToken();
+    // const token = this.authService.getToken();
+    const token = 'token';
     const headers = new HttpHeaders({
       'content-type':'application/json',
       'authorization': token
@@ -32,7 +33,8 @@ export class HttpService {
     return this.httpClient.post(url, data, {headers} );
   }
   put(url:string, data:any){
-    const token = this.authService.getToken();
+    // const token = this.authService.getToken();
+    const token = 'token';
     const headers = new HttpHeaders({
       'content-type':'application/json',
       'authorization': token
@@ -42,7 +44,8 @@ export class HttpService {
   }
 
   delete(url:string) {
-    const token = this.authService.getToken();
+    // const token = this.authService.getToken();
+    const token = 'token';
     const headers = new HttpHeaders({
       'content-type':'application/json',
       'authorization': token
