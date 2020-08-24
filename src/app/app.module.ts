@@ -12,6 +12,8 @@ import { ClientsListComponent } from './pages/clients/clients-list/clients-list.
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ClientFormComponent } from './pages/clients/client-form/client-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductsComponent } from './pages/products/products.component';
+import { ProductFormComponent } from './pages/products/product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
     UserFormComponent,
     ClientsComponent,
     ClientsListComponent,
-    ClientFormComponent
+    ClientFormComponent,
+    ProductsComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
