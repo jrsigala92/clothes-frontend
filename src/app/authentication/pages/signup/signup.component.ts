@@ -14,14 +14,15 @@ export class SignupComponent implements OnInit {
   form: FormGroup;
   name: string;
   constructor(
-    private fb: FormBuilder, 
-    private signupService:SignupService,
-    private router:Router,
-    private activatedRoute:ActivatedRoute) { }
+    private fb: FormBuilder,
+    private signupService: SignupService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
@@ -35,7 +36,7 @@ export class SignupComponent implements OnInit {
   }
 
   matchPasswords() {
-    if (!this.form) return;
+    if (!this.form)  {return; }
 
     const datos = this.form.getRawValue();
     if (datos.password === datos.confirmPassword) {
@@ -53,10 +54,10 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['../login'], {
           relativeTo: this.activatedRoute,
           queryParams: {
-            created:true
+            created: true
           }
         });
-      }, err =>{
+      }, err => {
         console.error('Failed to signup');
       });
     }

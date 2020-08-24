@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export interface Credentials{
-  email:string;
-  password:string;
+  email: string;
+  password: string;
 }
 
 @Injectable({
@@ -13,13 +13,14 @@ export interface Credentials{
 })
 export class LoginService {
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-  login(credentials:Credentials):Observable<any> {
+  login(credentials: Credentials): Observable<any> {
     const creds = {
-      username: credentials.email,
+      email: credentials.email,
       password: credentials.password
-    }
-    return this.httpClient.post(environment.apiUrl + 'login', creds);
+    };
+
+    return this.httpClient.post(environment.apiUrl + 'users/login', creds);
   }
 }

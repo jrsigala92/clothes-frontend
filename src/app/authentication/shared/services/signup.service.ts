@@ -5,9 +5,10 @@ import { environment } from 'src/environments/environment';
 
 
 interface SignupData {
-  name:string;
-  email:string;
-  password:string;
+  firstName: string;
+  lastName: string,
+  email: string;
+  password: string;
 }
 
 @Injectable({
@@ -15,15 +16,16 @@ interface SignupData {
 })
 export class SignupService {
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-  signup(data:any):Observable<any>{
-    const signupData:SignupData = {
-      name: data.name,
+  signup(data: any): Observable<any>{
+    const signupData: SignupData = {
+      firstName: data.firstName,
+      lastName: data.lastName,
       email: data.username,
       password: data.password
     };
 
-    return this.httpClient.post(environment.apiUrl+'signup', signupData);
+    return this.httpClient.post(environment.apiUrl + 'users/signup', signupData);
   }
 }

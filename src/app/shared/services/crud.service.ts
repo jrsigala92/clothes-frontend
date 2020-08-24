@@ -7,23 +7,23 @@ import { Observable } from 'rxjs';
 })
 export class CrudService {
 
-  private apiUrl:string = 'http://localhost:3000/';
-  protected endpoint:string;
-  constructor(private httpService:HttpService) { }
+  private apiUrl = 'http://localhost:3000/';
+  protected endpoint: string;
+  constructor(private httpService: HttpService) { }
 
-  getAll():Observable<any> {
+  getAll(): Observable<any> {
     return this.httpService.get(this.apiUrl + this.endpoint);
   }
 
-  getElement(id:number):Observable<any> {
+  getElement(id: number): Observable<any> {
     return this.httpService.get(this.apiUrl + this.endpoint +  `/${id}` );
   }
 
-  insert(data:any):Observable<any> {
+  insert(data: any): Observable<any> {
     return this.httpService.post(this.apiUrl + this.endpoint, data);
   }
 
-  save(data:any):Observable<any> {
+  save(data: any): Observable<any> {
     return this.httpService.post(this.apiUrl + this.endpoint, data);
   }
 }

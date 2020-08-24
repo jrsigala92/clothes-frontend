@@ -14,6 +14,8 @@ import { ClientFormComponent } from './pages/clients/client-form/client-form.com
 import { HttpClientModule } from '@angular/common/http';
 import { ProductsComponent } from './pages/products/products.component';
 import { ProductFormComponent } from './pages/products/product-form/product-form.component';
+import { ProductsListComponent } from './pages/products/products-list/products-list.component';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -26,14 +28,16 @@ import { ProductFormComponent } from './pages/products/product-form/product-form
     ClientsListComponent,
     ClientFormComponent,
     ProductsComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductsListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InputTextModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,15 +1,15 @@
 <h2>Iniciar Sesion</h2>
-<p *ngIf="error"> Credenciales incorrectas</p>
+<p *ngIf="error">{{errorMessage}}</p>
 <form [formGroup]="form" (submit)="login()">
     <div>
-        <input type="email" formControlName="email" placeholder="Correo Electronico">
+        <input type="email" formControlName="email" placeholder="Correo Electronico" pInputText />
     </div>
     <div>
-        <input type="password" formControlName="password" placeholder="Password">
+        <input type="password" formControlName="password" placeholder="Password" pInputText />
     </div>
     <div>
         <button>Iniciar Sesion</button>
     </div>
 </form>
 
-<span> no tienes cuenta? <a routerLink="../signup">Crea una aqui</a></span>
+<span> no tienes cuenta? <a routerLink="../signup">Crea una aquí</a></span>

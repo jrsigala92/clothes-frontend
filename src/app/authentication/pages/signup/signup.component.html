@@ -1,19 +1,23 @@
 <h2>Registrar nuevo usuario</h2>
 <form [formGroup]="form" (submit)="signup()">
     <div>
-        <input type="text" name="name" formControlName="name" placeholder="Nombre">
-        <span *ngIf="form.controls.name.errors"> Este campo es requerido</span>
+        <input type="text" name="name" formControlName="firstName" placeholder="Nombre" pInputText />
+        <!-- <span *ngIf="form.controls.name.errors"> Este campo es requerido</span> -->
+    </div>  
+    <div>
+        <input type="text" name="name" formControlName="lastName" placeholder="Apellido" pInputText />
+        <!-- <span *ngIf="form.controls.name.errors"> Este campo es requerido</span> -->
     </div>
     <div>
-        <input type="email" name="name" formControlName="username" placeholder="nombre de ususario">
+        <input type="email" name="name" formControlName="username" placeholder="email" pInputText />
     </div>
     <div>
-        <input type="password" name="name" formControlName="password" placeholder="contrase;a">
+        <input type="password" name="name" formControlName="password" placeholder="contraseña" pInputText />
     </div>
     <div>
-        <input type="password" name="confirmation" formControlName="confirmPassword" placeholder="confirmar contrase;a">
+        <input type="password" name="confirmation" formControlName="confirmPassword" placeholder="confirmar contraseña" pInputText />
     </div>
-    <span *ngIf="form.errors">Las contrase;as no coinciden</span>
+    <span *ngIf="form.errors">Las contraseñas no coinciden</span>
     <span>{{form.valid}}</span>
     <button>Guardar</button>
 
