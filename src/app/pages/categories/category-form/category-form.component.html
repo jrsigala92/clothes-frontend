@@ -1,0 +1,28 @@
+<h3>Categoría:</h3>
+    <!-- <p>El usuario seleccionado es</p>
+    <p *ngIf="user" >{{user.id}}</p> -->
+
+
+<form [formGroup]="form" (submit)="saveCategory()">
+    <!-- <p> es valido? {{form.valid}}</p> -->
+    <input hidden type="text" name="identifier" formControlName="id" [(ngModel)] = "category.id">
+    <div>
+    <div>
+        <input type="text" name="nombre" formControlName="name" [(ngModel)] = "category.name">
+        <span *ngIf="form.controls.name.errors && form.controls.name.dirty">
+            {{getErrorMessage('required')}}
+        </span>
+    </div>
+    <div>
+        <input type="text" name="descriptionName" formControlName="description" [(ngModel)] = "category.description">
+        <!-- {{form.controls.username.valid}} -->
+        <span *ngIf="form.controls.description.errors && form.controls.description.dirty">
+            {{form.controls.description.errors.required ?  getErrorMessage('required') : getErrorMessage('minLength')}}
+        </span>
+    </div>
+
+    <button [disabled]="form.invalid" >Guardar</button>
+</form>
+<p *ngIf="isLoading">Cargando...</p>
+
+<button (click) = "goBack()">Regresar</button>

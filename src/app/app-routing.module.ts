@@ -7,6 +7,12 @@ import { ProductsComponent } from './pages/products/products.component';
 import { ProductFormComponent } from './pages/products/product-form/product-form.component';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
+import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
+import { CategoryFormComponent } from './pages/categories/category-form/category-form.component';
+import { StatusesComponent } from './pages/statuses/statuses.component';
+import { StatusesListComponent } from './pages/statuses/statuses-list/statuses-list.component';
+import { StatusFormComponent } from './pages/statuses/status-form/status-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -19,8 +25,17 @@ const routes: Routes = [
   {path: 'products', component: UsersComponent, children:
   [
     {path: '', component: ProductsListComponent},
-    {path: ':productId', component: ProductsComponent},
     {path: ':productId', component: ProductFormComponent}
+  ]},
+  {path: 'categories', component: CategoriesComponent, children:
+  [
+    {path: '', component: CategoriesListComponent},
+    {path: ':categoryId', component: CategoryFormComponent}
+  ]},
+  {path: 'statuses', component: StatusesComponent, children:
+  [
+    {path: '', component: StatusesListComponent},
+    {path: ':statusId', component: StatusFormComponent}
   ]},
   {path: 'auth', loadChildren: () => import('./authentication/authentication.module').then(module => module.AuthenticationModule) },
 

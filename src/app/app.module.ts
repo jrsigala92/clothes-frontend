@@ -16,6 +16,12 @@ import { ProductsComponent } from './pages/products/products.component';
 import { ProductFormComponent } from './pages/products/product-form/product-form.component';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
+import { CategoryFormComponent } from './pages/categories/category-form/category-form.component';
+import { StatusesComponent } from './pages/statuses/statuses.component';
+import { StatusFormComponent } from './pages/statuses/status-form/status-form.component';
+import { StatusesListComponent } from './pages/statuses/statuses-list/statuses-list.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +35,13 @@ import { InputTextModule } from 'primeng/inputtext';
     ClientFormComponent,
     ProductsComponent,
     ProductFormComponent,
-    ProductsListComponent
+    ProductsListComponent,
+    CategoriesComponent,
+    CategoriesListComponent,
+    CategoryFormComponent,
+    StatusesComponent,
+    StatusFormComponent,
+    StatusesListComponent
   ],
   imports: [
     BrowserModule,

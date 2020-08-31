@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService, Credentials } from '../../shared/services/login.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 
 
@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder, 
     private loginService: LoginService,
     private router: Router,
-    private authService: AuthenticationService) { }
+    private authService: AuthenticationService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -39,8 +40,14 @@ export class LoginComponent implements OnInit {
         // console.log('credenciales correctas');
         if (response.token){
           this.error = false;
+          console.log(response.token)
           this.authService.saveToken(response.token);
-          this.router.navigate(['/']);
+          this.router.navigate(['./users'],
+          {
+              queryParams: 
+                response.token
+              
+            });
         }
         else {
           this.error = true;
