@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DataListComponent } from './shared/components/data-list/data-list.component';
@@ -22,6 +24,8 @@ import { StatusesComponent } from './pages/statuses/statuses.component';
 import { StatusFormComponent } from './pages/statuses/status-form/status-form.component';
 import { StatusesListComponent } from './pages/statuses/statuses-list/statuses-list.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
+import { MenuComponent } from './pages/layout/menu/menu.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,8 @@ import { CategoriesComponent } from './pages/categories/categories.component';
     CategoryFormComponent,
     StatusesComponent,
     StatusFormComponent,
-    StatusesListComponent
+    StatusesListComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,9 @@ import { CategoriesComponent } from './pages/categories/categories.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    InputTextModule
+    InputTextModule,
+    BrowserAnimationsModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

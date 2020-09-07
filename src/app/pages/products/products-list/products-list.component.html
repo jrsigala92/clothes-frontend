@@ -1,1 +1,1 @@
-<p>products-list works!</p>
+<app-data-list *ngIf="products" [data] ="products" [columns]="columns" (onItemSelect)="handleProductSelect($event)"></app-data-list>
