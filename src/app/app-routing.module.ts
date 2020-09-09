@@ -13,6 +13,7 @@ import { CategoryFormComponent } from './pages/categories/category-form/category
 import { StatusesComponent } from './pages/statuses/statuses.component';
 import { StatusesListComponent } from './pages/statuses/statuses-list/statuses-list.component';
 import { StatusFormComponent } from './pages/statuses/status-form/status-form.component';
+import { ProductsShopComponent } from './pages/products/products-shop/products-shop.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'products', component: UsersComponent, children:
   [
     {path: '', component: ProductsListComponent},
+    {path: 'shop', component: ProductsShopComponent},
     {path: ':productId', component: ProductFormComponent}
   ]},
   {path: 'categories', component: CategoriesComponent, children:

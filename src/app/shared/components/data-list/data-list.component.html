@@ -1,9 +1,25 @@
 <input type="text" (keyup)="filterData($event.target.value)">
-<table>
+<!-- <table>
     <tr>
         <th *ngFor="let col of columns">{{col.title}}</th>
     </tr>
     <tr *ngFor="let item of filteredData" (click)="selectItem(item)">
         <td *ngFor="let col of columns">{{item[col.field]}}</td>
     </tr>
-</table>
+</table> -->
+<p-table [columns]="columns" [value]="filteredData">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.title}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr *ngFor="let item of filteredData" (click)="selectItem(item)">
+            <td *ngFor="let col of columns">
+                {{item[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

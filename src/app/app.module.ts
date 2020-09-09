@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 
+import {CarouselModule} from 'primeng/carousel';
+import {TableModule} from 'primeng/table';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DataListComponent } from './shared/components/data-list/data-list.component';
@@ -26,6 +29,7 @@ import { StatusesListComponent } from './pages/statuses/statuses-list/statuses-l
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { MenuComponent } from './pages/layout/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductsShopComponent } from './pages/products/products-shop/products-shop.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StatusesComponent,
     StatusFormComponent,
     StatusesListComponent,
-    MenuComponent
+    MenuComponent,
+    ProductsShopComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     InputTextModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    CarouselModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
