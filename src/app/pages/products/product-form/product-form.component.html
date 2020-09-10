@@ -1,6 +1,6 @@
 <h3>Product:</h3>
-    <!-- <p>El usuario seleccionado es</p>
-    <p *ngIf="user" >{{user.id}}</p> -->
+    <!-- <p>El usuario seleccionado es</p>-->
+    <!-- <p *ngIf="product" >{{product.id}}</p>  -->
 
 
 <form [formGroup]="form" (submit)="saveProduct()">
@@ -8,17 +8,24 @@
     <input hidden type="text" name="identifier" formControlName="id" [(ngModel)] = "product.id" />
     <!-- <div> -->
     <div>
-        <input type="text" name="nombre" formControlName="name" [(ngModel)] = "product.name" /> 
+        <input type="text" name="nombre" formControlName="name" [(ngModel)] = "product.name" pInputText/> 
         <span *ngIf="form.controls.name.errors && form.controls.name.dirty">
             {{getErrorMessage('required')}}
         </span>
     </div>
     <div>
-        <input type="text" name="descriptionName" formControlName="description" [(ngModel)] = "product.description" />
+        <input type="text" name="descriptionName" formControlName="description" [(ngModel)] = "product.description" pInputText/>
         <!-- {{form.controls.username.valid}} -->
         <span *ngIf="form.controls.description.errors && form.controls.description.dirty">
             {{form.controls.description.errors.required ?  getErrorMessage('required') : getErrorMessage('minLength')}}
         </span>
+    </div>
+    <div>
+        <p-dropdown [options]="categories" optionLabel="name"></p-dropdown>
+    </div>
+
+    <div>
+        <p-dropdown [options]="users" optionLabel="email"></p-dropdown>
     </div>
  
     <button [disabled]="form.invalid" >Guardar</button>

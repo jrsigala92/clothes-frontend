@@ -5,6 +5,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 
 import {CarouselModule} from 'primeng/carousel';
 import {TableModule} from 'primeng/table';
+import {DropdownModule} from 'primeng/dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -63,7 +64,8 @@ import { ProductsShopComponent } from './pages/products/products-shop/products-s
     BrowserAnimationsModule,
     MatToolbarModule,
     CarouselModule,
-    TableModule
+    TableModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
