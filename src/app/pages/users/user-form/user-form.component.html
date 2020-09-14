@@ -26,6 +26,20 @@
         </span>
         <!-- {{form.controls.email.valid}} -->
     </div>
+    <div>
+        <input type="phone" name="telefono" formControlName="phone" [(ngModel)] = "user.phone">
+        <span *ngIf="form.controls.phone.errors && form.controls.phone.dirty">
+            {{form.controls.phone.errors.required ? getErrorMessage('required') : getErrorMessage('phone')}}
+        </span>
+        <!-- {{form.controls.email.valid}} -->
+    </div>
+    <div>
+        <input type="address" name="direccion" formControlName="address" [(ngModel)] = "user.address">
+        <span *ngIf="form.controls.address.errors && form.controls.address.dirty">
+            {{form.controls.address.errors.required ? getErrorMessage('required') : getErrorMessage('address')}}
+        </span>
+        <!-- {{form.controls.email.valid}} -->
+    </div>
 
     <button [disabled]="form.invalid" >Guardar</button>
 </form>
