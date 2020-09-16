@@ -4,41 +4,36 @@
 
 
 <form [formGroup]="form" (submit)="saveUser()">
-    <input hidden type="text" name="identifier" formControlName="id" [(ngModel)] = "user.id">
-    <!-- <p> es valido? {{form.valid}}</p> -->
+    <input hidden type="text" name="identifier" formControlName="id">
     <div>
-        <input type="text" name="nombre" formControlName="firstName" [(ngModel)] = "user.firstName">
+        <input type="text" name="nombre" placeholder="Nombre" formControlName="firstName">
         <span *ngIf="form.controls.firstName.errors && form.controls.firstName.dirty">
             {{getErrorMessage('required')}}
         </span>
     </div>
     <div>
-        <input type="text" name="nombreusuario" formControlName="lastName" [(ngModel)] = "user.lastName">
-        <!-- {{form.controls.username.valid}} -->
+        <input type="text" name="nombreusuario" placeholder="Apellido" formControlName="lastName">
         <span *ngIf="form.controls.lastName.errors && form.controls.lastName.dirty">
             {{form.controls.lastName.errors.required ?  getErrorMessage('required') : getErrorMessage('minLength')}}
         </span>
     </div>
     <div>
-        <input type="email" name="correo" formControlName="email" [(ngModel)] = "user.email">
+        <input type="email" name="correo"  placeholder="Email" formControlName="email">
         <span *ngIf="form.controls.email.errors && form.controls.email.dirty">
             {{form.controls.email.errors.required ? getErrorMessage('required') : getErrorMessage('email')}}
         </span>
-        <!-- {{form.controls.email.valid}} -->
     </div>
     <div>
-        <input type="phone" name="telefono" formControlName="phone" [(ngModel)] = "user.phone">
+        <input type="phone" name="telefono" placeholder="Teléfono" formControlName="phone">
         <span *ngIf="form.controls.phone.errors && form.controls.phone.dirty">
             {{form.controls.phone.errors.required ? getErrorMessage('required') : getErrorMessage('phone')}}
         </span>
-        <!-- {{form.controls.email.valid}} -->
     </div>
     <div>
-        <input type="address" name="direccion" formControlName="address" [(ngModel)] = "user.address">
+        <input type="address" name="direccion" placeholder="Dirección" formControlName="address">
         <span *ngIf="form.controls.address.errors && form.controls.address.dirty">
             {{form.controls.address.errors.required ? getErrorMessage('required') : getErrorMessage('address')}}
         </span>
-        <!-- {{form.controls.email.valid}} -->
     </div>
 
     <button [disabled]="form.invalid" >Guardar</button>

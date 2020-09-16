@@ -14,7 +14,7 @@ export class CategoriesListComponent implements OnInit {
     {title: 'Nombre', field: 'name'}
   ]
 
-  @Input() data:Category[];
+  @Input() data: Category[];
   constructor(private router: Router, private activatedRoute:ActivatedRoute, private categoriesService:CategoryService) { }
 
   ngOnInit(): void {
@@ -30,13 +30,13 @@ export class CategoriesListComponent implements OnInit {
     });
    }
 
-  openUser(id:number){
+  openUser(id: number){
      this.router.navigate([id], {
        relativeTo: this.activatedRoute
      });
    }
- 
-   handleCategorySelect(category:Category){
+
+   handleCategorySelect(category: Category){
      this.router.navigate([category.id], {
        relativeTo: this.activatedRoute
      });

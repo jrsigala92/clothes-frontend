@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
           this.authService.saveToken(response.token);
           this.router.navigate(['./users'],
           {
-              queryParams: 
+              queryParams:
                 response.token
               
             });

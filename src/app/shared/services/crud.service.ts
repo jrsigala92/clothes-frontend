@@ -24,6 +24,6 @@ export class CrudService {
   }
 
   save(data: any): Observable<any> {
-    return this.httpService.post(this.apiUrl + this.endpoint, data);
+    return this.httpService.put(this.apiUrl + this.endpoint, data);
   }
 }

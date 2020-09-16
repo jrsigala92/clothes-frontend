@@ -19,7 +19,7 @@ export class UserFormComponent implements OnInit {
   //   email:''
   // };
   form: FormGroup;
-  formSubmitted: Boolean;
+  formSubmitted: boolean;
 
   constructor(
     private userService: UserService,
@@ -33,7 +33,7 @@ export class UserFormComponent implements OnInit {
     this.activatedRoute.params.subscribe(urlParams => {
       console.log(urlParams);
       this.getUser(urlParams.userId);
-    })
+    });
 
     this.form = this.fb.group({
       id: [],
@@ -48,7 +48,7 @@ export class UserFormComponent implements OnInit {
   getUser(id: number): void {
     this.isLoading = true;
     this.userService.getElement(id).subscribe((response) => {
-      this.user = response; 
+      this.user = response;
       console.log(this.user);
       this.isLoading = false;
 
@@ -76,18 +76,18 @@ export class UserFormComponent implements OnInit {
       err => {
         console.error(err);
       });
-    console.log("Guardar Usuario", user);
+    console.log('Guardar Usuario', user);
     // mostrar modal
     this.router.navigate(['..'], {
       relativeTo: this.activatedRoute,
       queryParams: {
-        success:true
+        success: true
       }
     });
   }
-  
+
   validateSubmit(e) {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       this.saveUser();
     }
   }

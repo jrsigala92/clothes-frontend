@@ -20,8 +20,8 @@ export class UsersListComponent implements OnInit {
     {title: 'Email', field: 'email'},
   ]
 
-  @Input() data:User[];
-  constructor(private router: Router, private activatedRoute:ActivatedRoute, private userService:UserService) { }
+  @Input() data: User[];
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit(): void {
     this.getUsers();

@@ -40,7 +40,7 @@ export class ProductFormComponent implements OnInit {
       this.getProduct(urlParams.productId);
       this.getCategories();
       this.getUsers();
-    })
+    });
 
     this.form = this.fb.group({
       id: ['id', [Validators.required]],

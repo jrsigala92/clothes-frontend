@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import {SignupService} from './../../shared/services/signup.service';
+import { FormErrorsService } from 'src/app/shared/services/form-errors.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,13 +18,16 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private signupService: SignupService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private formError: FormErrorsService) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       username: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required]],
+      address: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
     }, {
@@ -62,6 +66,12 @@ export class SignupComponent implements OnInit {
       });
     }
     console.error('fallo');
+  }
+  
+  getErrorMessage(controlName) {
+    console.log(controlName);
+    console.log(this.formError.getErrorMessage(controlName));
+    return this.formError.getErrorMessage(controlName);
   }
 
 }

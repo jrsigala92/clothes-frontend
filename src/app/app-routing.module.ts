@@ -21,12 +21,14 @@ const routes: Routes = [
   {path: 'users', component: UsersComponent, children:
   [
     {path: '', component: UsersListComponent},
+    {path: 'create', component: UserFormComponent},
     {path: ':userId', component: UserFormComponent}
   ]},
   {path: 'products', component: UsersComponent, children:
   [
     {path: '', component: ProductsListComponent},
     {path: 'shop', component: ProductsShopComponent},
+    {path: 'create', component: ProductFormComponent},
     {path: ':productId', component: ProductFormComponent}
   ]},
   {path: 'categories', component: CategoriesComponent, children:

@@ -33,9 +33,10 @@ export class CategoryFormComponent implements OnInit {
     this.activatedRoute.params.subscribe(urlParams => {
       console.log(urlParams);
       this.getCategory(urlParams.categoryId);
-    })
+    });
 
     this.form = this.fb.group({
+      id:[''],
       name: ['', [Validators.required, Validators.minLength(6)]],
       description: ['', [Validators.required, Validators.minLength(6)]]
     });
@@ -45,13 +46,16 @@ export class CategoryFormComponent implements OnInit {
     this.isLoading = true;
     this.categoriesService.getElement(id).subscribe((response) => {
       this.category = response;
+      console.log(response);
       this.isLoading = false;
+      this.form.patchValue({ ...this.category });
 
     }, (err) => {
       console.error('Category not found');
       this.isLoading = false;
 
     });
+
   }
 
   goBack() {
@@ -80,9 +84,8 @@ export class CategoryFormComponent implements OnInit {
       }
     });
   }
-  
   validateSubmit(e) {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       this.saveCategory();
     }
   }

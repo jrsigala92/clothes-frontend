@@ -9,29 +9,30 @@ import { Data } from '@angular/router';
 })
 export class DataListComponent implements OnInit {
 
-  @Input() data:any[];
-  @Input() columns:any[];
-  @Output() onItemSelect:EventEmitter<any> = new EventEmitter();
-  filteredData:any[];
+  @Input() data: any[];
+  @Input() columns: any[];
+  @Output() onItemSelect: EventEmitter<any> = new EventEmitter();
+  filteredData: any[];
   constructor() { }
 
   ngOnInit(): void {
-    // this.filteredData = this.data.slice();
+    this.filteredData = this.data.slice();
+    // console.log(this.filteredData);
   }
 
-  ngOnChanges(changes:any){
+  ngOnChanges(changes: any){
     if (changes.data && this.data) {
-      console.log(changes.data);
+      // console.log(changes.data);
       this.filteredData = this.data.slice();
     }
   }
 
   selectItem(item){
     console.log('seleccionado', item);
-    this.onItemSelect.emit(item)
+    this.onItemSelect.emit(item);
   }
 
-  filterData(query:string){
+  filterData(query: string){
     console.log('buscar', query);
     query = query.toLowerCase();
     // let flag = this.filteredData = this.data.filter(item => {
@@ -43,7 +44,8 @@ export class DataListComponent implements OnInit {
         if (item[col.field].toLowerCase().includes(query)) {
           flag = true;
         }
-      })
+      });
+
       return flag;
     });
   }
