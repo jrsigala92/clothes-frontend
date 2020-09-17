@@ -13,11 +13,6 @@ import { FormErrorsService } from 'src/app/shared/services/form-errors.service';
 export class CategoryFormComponent implements OnInit {
   @Input() category: Category;
   isLoading: boolean;
-  // userData:User = {
-  //   name:'',
-  //   username:'',
-  //   email:''
-  // };
   form: FormGroup;
   formSubmitted: Boolean;
 
@@ -36,9 +31,9 @@ export class CategoryFormComponent implements OnInit {
     });
 
     this.form = this.fb.group({
-      id:[''],
+      // id:[''],
       name: ['', [Validators.required, Validators.minLength(6)]],
-      description: ['', [Validators.required, Validators.minLength(6)]]
+      description: ['']
     });
   }
 

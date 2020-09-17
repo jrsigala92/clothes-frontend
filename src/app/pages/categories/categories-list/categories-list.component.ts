@@ -11,7 +11,8 @@ import { CategoryService } from 'src/app/shared/services/category.service';
 export class CategoriesListComponent implements OnInit {
   categories: Array<any>;
   columns = [
-    {title: 'Nombre', field: 'name'}
+    {title: 'Nombre', field: 'name'},
+    {title: 'Descripción', field: 'description'}
   ]
 
   @Input() data: Category[];

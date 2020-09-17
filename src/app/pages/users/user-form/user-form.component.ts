@@ -37,8 +37,8 @@ export class UserFormComponent implements OnInit {
 
     this.form = this.fb.group({
       id: [],
-      firstName: ['', [Validators.required, Validators.minLength(6)]],
-      lastName: ['', [Validators.required, Validators.minLength(6)]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       address: ['', [Validators.required]]
@@ -49,6 +49,8 @@ export class UserFormComponent implements OnInit {
     this.isLoading = true;
     this.userService.getElement(id).subscribe((response) => {
       this.user = response;
+      
+      this.form.patchValue({ ...this.user });
       console.log(this.user);
       this.isLoading = false;
 

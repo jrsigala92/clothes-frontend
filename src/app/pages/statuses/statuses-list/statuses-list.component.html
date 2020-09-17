@@ -1,1 +1,2 @@
-<p>statuses-list works!</p>
+<span> <a routerLink="../statuses/create">Crear</a></span><br />
+<app-data-list *ngIf="statuses" [data] ="statuses" [columns]="columns" (onItemSelect)="handleStatusSelect($event)"></app-data-list>

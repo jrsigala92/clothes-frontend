@@ -15,9 +15,9 @@ export class UsersListComponent implements OnInit {
     {title: 'Nombre', field: 'firstName'},
     {title: 'Apellido', field: 'lastName'},
     {title: 'Email', field: 'email'},
-    {title: 'Phone', field: 'phone'},
-    {title: 'Address', field: 'address'},
-    {title: 'Email', field: 'email'},
+    {title: 'Teléfono', field: 'phone'},
+    {title: 'Dirección', field: 'address'},
+    {title: 'Activo', field: 'active'},
   ]
 
   @Input() data: User[];

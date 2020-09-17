@@ -17,7 +17,7 @@ export class ProductsListComponent implements OnInit {
     {title: 'Precio', field: 'price'},
     {title: 'Disponible', field: 'available'},
     {title: 'Fecha de Creación', field: 'createdAt'},
-    {title: 'Categoría', field: 'category'},
+    {title: 'Categoría', field: 'categoryName'},
     {title: 'Status', field: 'status'},
     {title: 'Usuario', field: 'user'}
   ]
@@ -26,13 +26,16 @@ export class ProductsListComponent implements OnInit {
   constructor(private router: Router, private activatedRoute:ActivatedRoute, private productsService:ProductService) { }
 
   ngOnInit(): void {
-    this.getCategories();
+    this.getProducts();
   }
 
-  getCategories() {
+  getProducts() {
     this.productsService.getAll().subscribe((response) =>{
       console.log(response);
       this.products = response;
+      this.products.forEach(e => {
+        e.categoryName = e.category.name;
+      });
     }, (err) =>{
       console.error(err);
     });
