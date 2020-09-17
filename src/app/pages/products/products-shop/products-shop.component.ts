@@ -20,7 +20,9 @@ export class ProductsShopComponent implements OnInit {
   getProducts() {
     this.productsService.getAll().subscribe((response) =>{
       console.log(response);
-      this.products = response;
+      this.products = response.filter(item => {
+        return item.displayInShop;
+      });
     }, (err) =>{
       console.error(err);
     });

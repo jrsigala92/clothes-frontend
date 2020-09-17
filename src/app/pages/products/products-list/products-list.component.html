@@ -1,2 +1,9 @@
 <span> <a routerLink="../products/create">Crear</a></span><br />
-<app-data-list *ngIf="products" [data] ="products" [columns]="columns" (onItemSelect)="handleProductSelect($event)"></app-data-list>
+<div>    
+    <div>
+        Categorias: <p-dropdown [options]="categories" optionLabel="name" (onChange)="categorySelected($event)"></p-dropdown>
+        Status: <p-dropdown [options]="statuses" optionLabel="name" (onChange)="statusSelected($event)"></p-dropdown>
+    </div>
+</div>
+<br />
+<app-data-list *ngIf="filteredData" [data] ="filteredData" [columns]="columns" (onItemSelect)="handleProductSelect($event)"></app-data-list>

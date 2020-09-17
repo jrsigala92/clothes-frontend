@@ -31,6 +31,9 @@ import { CategoriesComponent } from './pages/categories/categories.component';
 import { MenuComponent } from './pages/layout/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductsShopComponent } from './pages/products/products-shop/products-shop.component';
+import { PercentagesComponent } from './pages/percentages/percentages.component';
+import { PercentageFormComponent } from './pages/percentages/percentage-form/percentage-form.component';
+import { PercentagesListComponent } from './pages/percentages/percentages-list/percentages-list.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,10 @@ import { ProductsShopComponent } from './pages/products/products-shop/products-s
     StatusFormComponent,
     StatusesListComponent,
     MenuComponent,
-    ProductsShopComponent
+    ProductsShopComponent,
+    PercentagesComponent,
+    PercentageFormComponent,
+    PercentagesListComponent
   ],
   imports: [
     BrowserModule,

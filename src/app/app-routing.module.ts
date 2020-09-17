@@ -14,6 +14,9 @@ import { StatusesComponent } from './pages/statuses/statuses.component';
 import { StatusesListComponent } from './pages/statuses/statuses-list/statuses-list.component';
 import { StatusFormComponent } from './pages/statuses/status-form/status-form.component';
 import { ProductsShopComponent } from './pages/products/products-shop/products-shop.component';
+import { PercentagesComponent } from './pages/percentages/percentages.component';
+import { PercentageFormComponent } from './pages/percentages/percentage-form/percentage-form.component';
+import { PercentagesListComponent } from './pages/percentages/percentages-list/percentages-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -35,6 +38,11 @@ const routes: Routes = [
   [
     {path: '', component: CategoriesListComponent},
     {path: ':categoryId', component: CategoryFormComponent}
+  ]},
+  {path: 'percentages', component: PercentagesComponent, children:
+  [
+    {path: '', component: PercentagesListComponent},
+    {path: ':percentageId', component: PercentageFormComponent}
   ]},
   {path: 'statuses', component: StatusesComponent, children:
   [

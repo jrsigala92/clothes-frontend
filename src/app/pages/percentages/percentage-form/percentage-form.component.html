@@ -1,0 +1,28 @@
+<h3>Porcentaje:</h3>
+    <!-- <p>El usuario seleccionado es</p>
+    <p *ngIf="user" >{{user.id}}</p> -->
+
+
+<form [formGroup]="form" (submit)="savePercentage()">
+    <!-- <p> es valido? {{form.valid}}</p> -->
+    <input hidden type="text" name="identifier" formControlName="id" />
+    <!-- <div> -->
+    <div>
+        <input type="text" name="nombre" formControlName="name" /> 
+        <span *ngIf="form.controls.name.errors && form.controls.name.dirty">
+            {{getErrorMessage('required')}}
+        </span>
+    </div>
+    <div>
+        <input type="text" name="quantityName" formControlName="quantity" />
+        <!-- {{form.controls.username.valid}} -->
+        <span *ngIf="form.controls.quantity.errors && form.controls.quantity.dirty">
+            {{form.controls.quantity.errors.required ?  getErrorMessage('required') : getErrorMessage('minLength')}}
+        </span>
+    </div>
+ 
+    <button [disabled]="form.invalid" >Guardar</button>
+</form>
+<p *ngIf="isLoading">Cargando...</p> 
+
+<button (click) = "goBack()">Regresar</button> 
