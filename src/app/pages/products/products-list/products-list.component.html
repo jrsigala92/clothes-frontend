@@ -2,7 +2,9 @@
 <div>    
     <div>
         Categorias: <p-dropdown [options]="categories" optionLabel="name" (onChange)="categorySelected($event)"></p-dropdown>
-        Status: <p-dropdown [options]="statuses" optionLabel="name" (onChange)="statusSelected($event)"></p-dropdown>
+        Status: <p-dropdown [options]="statuses" [locale]="es" optionLabel="name" (onChange)="statusSelected($event)"></p-dropdown>
+        Desde: <p-calendar [(ngModel)]="start" [locale]="es" (onSelect)="dateSelected($event)"></p-calendar>
+        Hasta: <p-calendar [(ngModel)]="end"(onSelect)="dateSelected($event)"></p-calendar>
     </div>
 </div>
 <br />

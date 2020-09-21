@@ -9,6 +9,8 @@ interface SignupData {
   lastName: string,
   email: string;
   password: string;
+  address: string;
+  phone:number;
 }
 
 @Injectable({
@@ -23,7 +25,9 @@ export class SignupService {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.username,
-      password: data.password
+      password: data.password,
+      address: data.address,
+      phone: data.phone
     };
 
     return this.httpClient.post(environment.apiUrl + 'users/signup', signupData);

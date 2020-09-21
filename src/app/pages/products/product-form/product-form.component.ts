@@ -23,7 +23,8 @@ export class ProductFormComponent implements OnInit {
   form: FormGroup;
   formSubmitted: Boolean;
   isLoading: boolean;
-
+  defaultDropdownCategory: Category = {id:0, name:'Seleccionar'};
+  defaultDropdownUser: User = {id:0, firstName:'Seleccionar'};
   constructor(
     private productsService: ProductService,
     private categoriesService: CategoryService,
@@ -45,7 +46,9 @@ export class ProductFormComponent implements OnInit {
     this.form = this.fb.group({
       id: ['id', [Validators.required]],
       name: ['name', [Validators.required, Validators.minLength(6)]],
-      description: ['description', [Validators.required, Validators.minLength(6)]]
+      description: ['description', [Validators.required, Validators.minLength(6)]],
+      categoryID: ['categoryID', [Validators.required]],
+      userID: ['userID', [Validators.required]]
     });
   }
 
@@ -65,6 +68,8 @@ export class ProductFormComponent implements OnInit {
   async getCategories(){
     this.categoriesService.getAll().subscribe(response => {
       this.categories = response;
+      this.categories.unshift(this.defaultDropdownCategory);
+      this.users.unshift(this.defaultDropdownUser);
       console.log(this.categories)
     }, (err) =>{
       console.error(err);

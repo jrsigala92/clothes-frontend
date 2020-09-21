@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { StatusService } from 'src/app/shared/services/status.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-products-list',
@@ -15,30 +16,47 @@ export class ProductsListComponent implements OnInit {
   products: Array<any>;
   categories: Array<any>;
   statuses: Array<any>;
+  start: Date;
+  end: Date;
+  es: any;
+
   columns = [
     {title: 'Nombre', field: 'name'},
     {title: 'Descripción', field: 'description'},
     {title: 'Precio', field: 'price'},
     {title: 'Disponible', field: 'available'},
-    {title: 'Fecha de Creación', field: 'createdAt'},
+    {title: 'Fecha de Creación', field: 'createdAtFormated'},
     {title: 'Categoría', field: 'categoryName'},
     // {title: 'Status', field: 'status'},
     {title: 'Status', field: 'statusName'},
     {title: 'Usuario', field: 'user'}
   ];
-  filteredData: any[];
+  filteredData: Product[];
   @Input() data: Product[];
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private productsService: ProductService,
     private categoriesService: CategoryService,
-    private statusesService: StatusService) { }
+    private statusesService: StatusService,
+    private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.getCategories();
     this.getStatuses();
     this.getProducts();
+    this.es = {
+      firstDayOfWeek: 0,
+      dayNames: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"],
+      dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+      dayNamesMin: ["Do","Lu","Ma","Mi","Ju","Vi","Sa"],
+      monthNames: [ "Enero","FFebrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" ],
+      monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun","Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
+      today: 'Today',
+      clear: 'Clear',
+      dateFormat: 'dd/mm/yyyy',
+      weekHeader: 'Wk'
+  };
   }
 
   getProducts() {
@@ -48,6 +66,8 @@ export class ProductsListComponent implements OnInit {
       this.products.forEach(e => {
         e.categoryName = e.category ? e.category.name : null;
         e.statusName = e.status ? e.status.name : null;
+        e.createdAtFormated =this.datePipe.transform(e.createdAt,'dd-MM-yyyy');
+        e.createdAt = new Date(e.createdAt);
       });
       this.filteredData = this.products.slice();
     }, (err) => {
@@ -109,5 +129,23 @@ export class ProductsListComponent implements OnInit {
     });
   }
 
-
+  dateSelected() {
+    if(this.start && this.end){
+      console.log(this.start);
+      console.log(this.end);
+      console.log(this.products);
+       this.filteredData = this.products.filter(item => {
+        let flag = false;
+        console.log(typeof(item.createdAt));
+        if(item.createdAt >= this.start && item.createdAt <= this.end){
+          flag = true;
+          console.log("entro", item.createdAt);
+        }
+        else{
+          console.log("no entro", item.createdAt);
+        }
+        return flag;
+      });
+    }
+  }
 }

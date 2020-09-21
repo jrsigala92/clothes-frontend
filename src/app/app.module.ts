@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {DatePipe} from '@angular/common';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 import {CarouselModule} from 'primeng/carousel';
 import {TableModule} from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
+import {CalendarModule} from 'primeng/calendar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -71,9 +72,10 @@ import { PercentagesListComponent } from './pages/percentages/percentages-list/p
     MatToolbarModule,
     CarouselModule,
     TableModule,
-    DropdownModule
+    DropdownModule,
+    CalendarModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
