@@ -1,10 +1,11 @@
+<h1>Listado de Productos</h1>
 <span> <a routerLink="../products/create">Crear</a></span><br />
 <div>    
     <div>
         Categorias: <p-dropdown [options]="categories" optionLabel="name" (onChange)="categorySelected($event)"></p-dropdown>
-        Status: <p-dropdown [options]="statuses" [locale]="es" optionLabel="name" (onChange)="statusSelected($event)"></p-dropdown>
-        Desde: <p-calendar [(ngModel)]="start" [locale]="es" (onSelect)="dateSelected($event)"></p-calendar>
-        Hasta: <p-calendar [(ngModel)]="end"(onSelect)="dateSelected($event)"></p-calendar>
+        Status: <p-dropdown [options]="statuses" optionLabel="name" (onChange)="statusSelected($event)"></p-dropdown>
+        Desde: <p-calendar [(ngModel)]="start" [locale]="es" (onSelect)="dateSelected()"></p-calendar>
+        Hasta: <p-calendar [(ngModel)]="end"[locale]="es" (onSelect)="dateSelected()"></p-calendar>
     </div>
 </div>
 <br />

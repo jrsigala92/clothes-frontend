@@ -1,2 +1,3 @@
+<h1>Listado de Categorías</h1>
 <span> <a routerLink="../categories/create">Crear</a></span><br />
 <app-data-list *ngIf="categories" [data] ="categories" [columns]="columns" (onItemSelect)="handleCategorySelect($event)"></app-data-list>

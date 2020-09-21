@@ -1,2 +1,3 @@
+<h1>Listado de Porcentajes</h1>
 <span> <a routerLink="../percentages/create">Crear</a></span><br />
 <app-data-list *ngIf="percentages" [data] ="percentages" [columns]="columns" (onItemSelect)="handlePercentageSelect($event)"></app-data-list>

@@ -1,61 +1,98 @@
-<h3>Datos del usuario:</h3>
-    <!-- <p>El usuario seleccionado es</p>
+<!-- <h1>Datos del usuario:</h1> -->
+<!-- <p>El usuario seleccionado es</p>
     <p *ngIf="user" >{{user.id}}</p> -->
+<p-panel header="Datos del usuario" [toggleable]="true">
+    <form [formGroup]="form" (submit)="saveUser()">
+        <!-- <p>{{form.valid}}</p> -->
+        <!-- <input hidden type="text" name="identifier" formControlName="id"> -->
+        <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-8 p-md-1">
+                <label>Nombre:</label><br />
+                <input pInputText type="text" name="nombre" placeholder="Nombre" formControlName="firstName">
+                <span *ngIf="form.controls.firstName.errors && form.controls.firstName.dirty">
+                    {{getErrorMessage('required')}}
+                </span>
+            </div>
 
+            <div class="p-field p-col-8 p-md-1">
+                <label>Apellido:</label><br />
+                <input pInputText type="text" name="nombreusuario" placeholder="Apellido" formControlName="lastName">
+                <span *ngIf="form.controls.lastName.errors && form.controls.lastName.dirty">
+                    {{form.controls.lastName.errors.required ?  getErrorMessage('required') : getErrorMessage('minLength')}}
+                </span>
+            </div>
 
-<form [formGroup]="form" (submit)="saveUser()">
-    <input hidden type="text" name="identifier" formControlName="id">
-    <div>
-        <input type="text" name="nombre" placeholder="Nombre" formControlName="firstName">
-        <span *ngIf="form.controls.firstName.errors && form.controls.firstName.dirty">
-            {{getErrorMessage('required')}}
-        </span>
-    </div>
-    <div>
-        <input type="text" name="nombreusuario" placeholder="Apellido" formControlName="lastName">
-        <span *ngIf="form.controls.lastName.errors && form.controls.lastName.dirty">
-            {{form.controls.lastName.errors.required ?  getErrorMessage('required') : getErrorMessage('minLength')}}
-        </span>
-    </div>
-    <div>
-        <input type="email" name="correo"  placeholder="Email" formControlName="email">
-        <span *ngIf="form.controls.email.errors && form.controls.email.dirty">
-            {{form.controls.email.errors.required ? getErrorMessage('required') : getErrorMessage('email')}}
-        </span>
-    </div>
-    <div>
-        <input type="phone" name="telefono" placeholder="Teléfono" formControlName="phone">
-        <span *ngIf="form.controls.phone.errors && form.controls.phone.dirty">
-            {{form.controls.phone.errors.required ? getErrorMessage('required') : getErrorMessage('phone')}}
-        </span>
-    </div>
-    <div>
-        <input type="address" name="direccion" placeholder="Dirección" formControlName="address">
-        <span *ngIf="form.controls.address.errors && form.controls.address.dirty">
-            {{form.controls.address.errors.required ? getErrorMessage('required') : getErrorMessage('address')}}
-        </span>
-    </div>
+            <div class="p-field p-col-8 p-md-2">
+                <label>Email:</label><br />
+                <input pInputText type="email" name="correo" placeholder="Email" formControlName="email">
+                <span *ngIf="form.controls.email.errors && form.controls.email.dirty">
+                    {{form.controls.email.errors.required ? getErrorMessage('required') : getErrorMessage('email')}}
+                </span>
+            </div>
 
-    <button [disabled]="form.invalid" >Guardar</button>
-</form>
-<div *ngIf="user.products">
-    <table>
-        <thead>
+            <div class="p-field p-col-8 p-md-2">
+                <label>Teléfono:</label><br />
+                <input pInputText type="phone" name="telefono" placeholder="Teléfono" formControlName="phone">
+                <span *ngIf="form.controls.phone.errors && form.controls.phone.dirty">
+                    {{form.controls.phone.errors.required ? getErrorMessage('required') : getErrorMessage('phone')}}
+                </span>
+            </div>
+
+            <div class="p-field p-col-8 p-md-2">
+                <label>Dirección:</label><br />
+                <input pInputText type="address" name="direccion" placeholder="Dirección" formControlName="address">
+                <span *ngIf="form.controls.address.errors && form.controls.address.dirty">
+                    {{form.controls.address.errors.required ? getErrorMessage('required') : getErrorMessage('address')}}
+                </span>
+            </div>
+            <div class="p-field p-col-8 p-md-2">
+                <div class="p-text-right"></div>
+                <label style="visibility:hidden">Dirección:</label><br />
+                <button pButton type="button" label="Guardar" class="p-button-success" (click)="saveUser()" [disabled]="form.invalid"></button>
+                <!-- <button pButton type="button" label="Regresar" class="p-button-secondary" (click)="goBack()"></button> -->
+            </div>
+            <div class="p-field p-col-8 p-md-2">
+                <div class="p-text-right"></div>
+                <label style="visibility:hidden">Dirección:</label><br />
+                <!-- <button pButton type="button" label="Guardar" class="p-button-success" [disabled]="form.invalid"></button> -->
+                <button pButton type="button" label="Regresar" class="p-button-secondary" (click)="goBack()"></button>
+            </div>
+        </div>
+    </form>
+</p-panel>
+<p-panel header="Balance" [toggleable]="true">
+    {{user.firstName}} cuenta con: $ {{user.balance}}
+</p-panel>
+
+<div *ngIf="!isLoading">
+    <p-panel header="Productos" [toggleable]="true">
+    <p-table [value]="user.products">
+        <ng-template pTemplate="header">
             <tr>
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Precio</th>
+                <th>Ganancia</th>
+                <th>Usuario</th>
+                <th>Donación</th>
+                <th>Fecha de Creación</th>
+                <th>Status</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let product of user.products">
-                <td>{{product.name}}</td>
-                <td>{{product.description}}</td>
-                <td>{{product.price}}</td>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+            <tr>
+                <td>{{rowData.name}}</td>
+                <td>{{rowData.description}}</td>
+                <td>{{rowData.price}}</td>
+                <td>{{rowData.profit}}</td>
+                <td>{{rowData.userProfit}}</td>
+                <td>{{rowData.donation}}</td>
+                <td>{{rowData.createdAtFormated}}</td>
+                <td>{{rowData.statusName}}</td>
+                <!-- <td>{{rowData.}}</td> -->
             </tr>
-        </tbody>
-    </table>
+        </ng-template>
+    </p-table>
+</p-panel>
 </div>
 <p *ngIf="isLoading">Cargando...</p>
-
-<button (click) = "goBack()">Regresar</button>

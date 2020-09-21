@@ -7,5 +7,6 @@ export interface User {
     phone?: string;
     address?: string;
     email?: string;
+    balance?: number;
     products?: Product[];
 }

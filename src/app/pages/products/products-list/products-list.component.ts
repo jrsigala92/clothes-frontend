@@ -24,12 +24,15 @@ export class ProductsListComponent implements OnInit {
     {title: 'Nombre', field: 'name'},
     {title: 'Descripción', field: 'description'},
     {title: 'Precio', field: 'price'},
+    {title: 'Ganancia', field: 'profit'},
+    {title: 'Usuario', field: 'userProfit'},
+    {title: 'Donacion', field: 'donation'},
     {title: 'Disponible', field: 'available'},
     {title: 'Fecha de Creación', field: 'createdAtFormated'},
     {title: 'Categoría', field: 'categoryName'},
     // {title: 'Status', field: 'status'},
     {title: 'Status', field: 'statusName'},
-    {title: 'Usuario', field: 'user'}
+    {title: 'Usuario', field: 'userName'}
   ];
   filteredData: Product[];
   @Input() data: Product[];
@@ -47,11 +50,11 @@ export class ProductsListComponent implements OnInit {
     this.getProducts();
     this.es = {
       firstDayOfWeek: 0,
-      dayNames: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"],
-      dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-      dayNamesMin: ["Do","Lu","Ma","Mi","Ju","Vi","Sa"],
-      monthNames: [ "Enero","FFebrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" ],
-      monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun","Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
+      dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'],
+      dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+      dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+      monthNames: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+      monthNamesShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
       today: 'Today',
       clear: 'Clear',
       dateFormat: 'dd/mm/yyyy',
@@ -63,12 +66,7 @@ export class ProductsListComponent implements OnInit {
     this.productsService.getAll().subscribe((response) => {
       console.log(response);
       this.products = response;
-      this.products.forEach(e => {
-        e.categoryName = e.category ? e.category.name : null;
-        e.statusName = e.status ? e.status.name : null;
-        e.createdAtFormated =this.datePipe.transform(e.createdAt,'dd-MM-yyyy');
-        e.createdAt = new Date(e.createdAt);
-      });
+      this.assignProperties();
       this.filteredData = this.products.slice();
     }, (err) => {
       console.error(err);
@@ -85,6 +83,16 @@ export class ProductsListComponent implements OnInit {
     return this.statusesService.getAll().subscribe((response) => {
       this.statuses = response;
       this.statuses.unshift({id: 0 , name: 'Todos'});
+    });
+  }
+
+  assignProperties(){
+    this.products.forEach(e => {
+      e.categoryName = e.category ? e.category.name : null;
+      e.statusName = e.status ? e.status.name : null;
+      e.createdAtFormated = this.datePipe.transform(e.createdAt, 'dd-MM-yyyy');
+      e.createdAt = new Date(e.createdAt);
+      e.userName = e.user.firstName + ' ' + e.user.lastName + ' ' + e.user.phone;
     });
   }
 
@@ -134,15 +142,15 @@ export class ProductsListComponent implements OnInit {
       console.log(this.start);
       console.log(this.end);
       console.log(this.products);
-       this.filteredData = this.products.filter(item => {
+      this.filteredData = this.products.filter(item => {
         let flag = false;
-        console.log(typeof(item.createdAt));
-        if(item.createdAt >= this.start && item.createdAt <= this.end){
+        console.log(typeof (item.createdAt));
+        if (item.createdAt >= this.start && item.createdAt <= this.end) {
           flag = true;
-          console.log("entro", item.createdAt);
+          console.log('entro', item.createdAt);
         }
-        else{
-          console.log("no entro", item.createdAt);
+        else {
+          console.log('no entro', item.createdAt);
         }
         return flag;
       });

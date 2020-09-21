@@ -4,6 +4,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormErrorsService } from 'src/app/shared/services/form-errors.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-form',
@@ -26,7 +27,8 @@ export class UserFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private formError: FormErrorsService) {
+    private formError: FormErrorsService,
+    private datePipe: DatePipe) {
   }
 
   ngOnInit() {
@@ -36,7 +38,7 @@ export class UserFormComponent implements OnInit {
     });
 
     this.form = this.fb.group({
-      id: [],
+      // id: [],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -49,9 +51,13 @@ export class UserFormComponent implements OnInit {
     this.isLoading = true;
     this.userService.getElement(id).subscribe((response) => {
       this.user = response;
-
+      this.user.products.forEach(e => {
+        e.categoryName = e.category ? e.category.name : null;
+        e.statusName = e.name === 'Camisa' ? 'Vendido' : 'Disponible';
+        e.createdAtFormated = this.datePipe.transform(e.createdAt, 'dd-MM-yyyy');
+        e.createdAt = new Date(e.createdAt);
+      });
       this.form.patchValue({ ...this.user });
-      console.log(this.user);
       this.isLoading = false;
 
     }, (err) => {
