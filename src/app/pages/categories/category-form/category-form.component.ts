@@ -59,25 +59,22 @@ export class CategoryFormComponent implements OnInit {
     });
   }
 
-  saveCategory() {
+  async saveCategory() {
     this.formSubmitted = true;
-    console.log('guardando');
     const user = this.form.getRawValue();
-    console.log(user);
-    this.categoriesService.save(user).subscribe(response => {
-      console.log('se guardo correctamente');
+    await this.categoriesService.save(user).subscribe(response => {
+      this.router.navigate(['..'], {
+        relativeTo: this.activatedRoute,
+        queryParams: {
+          success: true
+        }
+      });
     },
       err => {
         console.error(err);
       });
-    console.log("Guardar Usuario", user);
     // mostrar modal
-    this.router.navigate(['..'], {
-      relativeTo: this.activatedRoute,
-      queryParams: {
-        success:true
-      }
-    });
+    
   }
   validateSubmit(e) {
     if (e.key === 'Enter') {

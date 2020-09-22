@@ -12,6 +12,7 @@ export class DataListComponent implements OnInit {
   @Input() data: any[];
   @Input() columns: any[];
   @Output() onItemSelect: EventEmitter<any> = new EventEmitter();
+  @Output() onItemDelete: EventEmitter<any> = new EventEmitter();
   filteredData: any[];
   constructor() { }
 
@@ -30,6 +31,11 @@ export class DataListComponent implements OnInit {
   selectItem(item){
     console.log('seleccionado', item);
     this.onItemSelect.emit(item);
+  }
+
+  deleteItem(item){
+    console.log('A borrar', item);
+    this.onItemDelete.emit(item);
   }
 
   filterData(query: string){

@@ -5,13 +5,15 @@
             <th *ngFor="let col of columns">
                 {{col.title}}
             </th>
+            <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr (click)="selectItem(rowData)">
-            <td *ngFor="let col of columns">
+        <tr>
+            <td (click)="selectItem(rowData)" *ngFor="let col of columns">
                     {{rowData[col.field]}}
             </td>
+            <td><a (click)="deleteItem(rowData)">Delete</a></td>
         </tr>   
     </ng-template>
 </p-table>

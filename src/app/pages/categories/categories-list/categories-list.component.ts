@@ -22,11 +22,11 @@ export class CategoriesListComponent implements OnInit {
     this.getCategories();
   }
 
-  getCategories() {
-    this.categoriesService.getAll().subscribe((response) =>{
+  async getCategories() {
+   await this.categoriesService.getAll().subscribe((response) => {
       console.log(response);
       this.categories = response;
-    }, (err) =>{
+    }, (err) => {
       console.error(err);
     });
    }
@@ -42,5 +42,16 @@ export class CategoriesListComponent implements OnInit {
        relativeTo: this.activatedRoute
      });
    }
+
+   async handleCategoryDelete(category: Category){
+    await this.categoriesService.delete(category.id).subscribe((response) => {
+      console.log(response);
+      this.categoriesService.getAll().subscribe( (x) => {
+        this.categories = x;
+      });
+    }, (err) => {
+      console.error(err);
+    });
+  }
 
 }

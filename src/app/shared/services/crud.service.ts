@@ -26,4 +26,8 @@ export class CrudService {
   save(data: any): Observable<any> {
     return this.httpService.put(this.apiUrl + this.endpoint, data);
   }
+
+  delete(id: number): Observable<any> {
+    return this.httpService.delete(this.apiUrl + this.endpoint + `/${id}`);
+  }
 }
