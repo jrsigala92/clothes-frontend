@@ -9,6 +9,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import {ButtonModule} from 'primeng/button';
 import {PanelModule} from 'primeng/panel';
+import {CardModule} from 'primeng/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -77,7 +78,8 @@ import { PercentagesListComponent } from './pages/percentages/percentages-list/p
     DropdownModule,
     CalendarModule,
     ButtonModule,
-    PanelModule
+    PanelModule,
+    CardModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

@@ -27,7 +27,7 @@ export class ProductsListComponent implements OnInit {
     {title: 'Ganancia', field: 'profit'},
     {title: 'Usuario', field: 'userProfit'},
     {title: 'Donacion', field: 'donation'},
-    {title: 'Disponible', field: 'available'},
+    {title: 'En línea', field: 'displayInShop'},
     {title: 'Fecha de Creación', field: 'createdAtFormated'},
     {title: 'Categoría', field: 'categoryName'},
     // {title: 'Status', field: 'status'},
@@ -107,6 +107,16 @@ export class ProductsListComponent implements OnInit {
        relativeTo: this.activatedRoute
      });
    }
+   async handleProductDelete(product: Product){
+    await this.productsService.delete(product.id).subscribe((response) => {
+      console.log(response);
+      this.productsService.getAll().subscribe( (x) => {
+        this.products = x;
+      });
+    }, (err) => {
+      console.error(err);
+    });
+  }
 
    categorySelected(e){
     if (e.value.name === 'Todas'){

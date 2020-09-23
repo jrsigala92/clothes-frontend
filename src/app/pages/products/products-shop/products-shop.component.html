@@ -1,8 +1,22 @@
-<p-carousel [value]="products">
+<p-carousel [value]="products" [numVisible]="3"  [circular]="true">
     <ng-template let-product pTemplate="item">
-        <div>{{product.name}}</div>
-        <div>$ {{product.price}}</div>
-        <div>{{product.description}}</div>
-        <div>{{product.createdAt}}</div>
+        <div class="product-item">
+            <div class="product-item-content">
+                <div class="p-mb-3">
+                </div>
+                    <div>
+                        <h4 class="p-mb-1">{{product.name}}</h4>
+
+
+                        <h6 class="p-mt-0 p-mb-3">$ {{product.price}}</h6>
+                        <div>{{product.description}}</div>
+                        <!-- <div>{{product.createdAt}}</div> -->
+                        <div class="car-buttons p-mt-5">
+                            <button pButton type="button" label="Comprar" class="p-button-secondary"
+                                (click)="buyProduct(product)"></button>
+                        </div>
+                    </div>
+            </div>
+        </div>
     </ng-template>
 </p-carousel>

@@ -2,13 +2,13 @@
 <p *ngIf="error">{{errorMessage}}</p>
 <form [formGroup]="form" (submit)="login()">
     <div>
-        <input type="email" formControlName="email" placeholder="Correo Electronico" pInputText />
+        <input type="email" formControlName="username" placeholder="Usuario" pInputText />
     </div>
     <div>
         <input type="password" formControlName="password" placeholder="Password" pInputText />
     </div>
     <div>
-        <button>Iniciar Sesion</button>
+        <button pButton type="button" label="Iniciar Sesion" class="p-button-success"></button>
     </div>
 </form>
 

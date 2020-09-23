@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export interface Credentials{
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -17,7 +17,7 @@ export class LoginService {
 
   login(credentials: Credentials): Observable<any> {
     const creds = {
-      email: credentials.email,
+      email: credentials.username,
       password: credentials.password
     };
 

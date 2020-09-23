@@ -9,4 +9,4 @@
     </div>
 </div>
 <br />
-<app-data-list *ngIf="filteredData" [data] ="filteredData" [columns]="columns" (onItemSelect)="handleProductSelect($event)"></app-data-list>
+<app-data-list *ngIf="filteredData" [data] ="filteredData" [columns]="columns" (onItemDelete)="handleProductDelete($event)" (onItemSelect)="handleProductSelect($event)"></app-data-list>

@@ -42,5 +42,15 @@ export class PercentagesListComponent implements OnInit {
        relativeTo: this.activatedRoute
      });
    }
+   async handlePercentageDelete(percentage: Percentage){
+    await this.percentagesService.delete(percentage.id).subscribe((response) => {
+      console.log(response);
+      this.percentagesService.getAll().subscribe( (x) => {
+        this.percentages = x;
+      });
+    }, (err) => {
+      console.error(err);
+    });
+  }
 
 }

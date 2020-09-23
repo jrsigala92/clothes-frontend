@@ -42,5 +42,15 @@ export class StatusesListComponent implements OnInit {
        relativeTo: this.activatedRoute
      });
    }
+   async handleStatusDelete(status: Status){
+    await this.statusesService.delete(status.id).subscribe((response) => {
+      console.log(response);
+      this.statusesService.getAll().subscribe( (x) => {
+        this.statuses = x;
+      });
+    }, (err) => {
+      console.error(err);
+    });
+  }
 
 }

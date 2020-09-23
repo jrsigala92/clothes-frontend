@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { InputTextModule } from 'primeng/inputtext';
+
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { ButtonModule } from 'primeng/button';
+
 
 
 @NgModule({
@@ -15,7 +19,9 @@ import { SignupComponent } from './pages/signup/signup.component';
     AuthenticationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ButtonModule,
+    InputTextModule,
   ]
 })
 export class AuthenticationModule { }

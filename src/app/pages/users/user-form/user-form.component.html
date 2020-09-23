@@ -61,7 +61,7 @@
     </form>
 </p-panel>
 <p-panel header="Balance" [toggleable]="true">
-    {{user.firstName}} cuenta con: $ {{user.balance}}
+    {{user.firstName}} cuenta con: <span class="p-badge p-badge-xl p-badge-warning">${{user.balance}}</span>
 </p-panel>
 
 <div *ngIf="!isLoading">

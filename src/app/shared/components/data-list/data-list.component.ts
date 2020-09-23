@@ -21,7 +21,7 @@ export class DataListComponent implements OnInit {
     // console.log(this.filteredData);
   }
 
-  ngOnChanges(changes: any){
+  ngOnChanges(changes: any): void{
     if (changes.data && this.data) {
       // console.log(changes.data);
       this.filteredData = this.data.slice();
@@ -41,9 +41,6 @@ export class DataListComponent implements OnInit {
   filterData(query: string){
     console.log('buscar', query);
     query = query.toLowerCase();
-    // let flag = this.filteredData = this.data.filter(item => {
-    //   return item.toLowerCase().includes(query);
-    // });
     this.filteredData = this.data.filter(item => {
       let flag = false;
       this.columns.map( col => {
@@ -54,5 +51,9 @@ export class DataListComponent implements OnInit {
 
       return flag;
     });
+  }
+
+  isBool(val): boolean{
+    return typeof val === 'boolean';
   }
 }

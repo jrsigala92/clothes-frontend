@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email: '', // ['',['', Validators.required, Validators.email]],
+      username: '', // ['',['', Validators.required, Validators.email]],
       password: '', // ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
           {
               queryParams:
                 response.token
-              
             });
         }
         else {

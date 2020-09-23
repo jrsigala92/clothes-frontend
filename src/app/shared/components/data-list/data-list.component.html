@@ -11,9 +11,22 @@
     <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr>
             <td (click)="selectItem(rowData)" *ngFor="let col of columns">
-                    {{rowData[col.field]}}
+                <p *ngIf="isBool(rowData[col.field]) && rowData[col.field]">
+                    <span class="p-badge p-badge-success"></span>
+                </p> 
+                <p *ngIf="isBool(rowData[col.field]) && !rowData[col.field]">
+                    <span class="p-badge p-badge-danger"></span>
+                </p>
+                <p *ngIf="!isBool(rowData[col.field])">{{rowData[col.field]}}</p>
             </td>
-            <td><a (click)="deleteItem(rowData)">Delete</a></td>
+            <!-- <td *ngIf="typeof(rowData[col.field]) === bool && rowData[col.field]">
+                <span class="p-badge p-badge-success"></span>
+            </td>
+            <td *ngIf="typeof(rowData[col.field]) === bool && !rowData[col.field]">
+                <span class="p-badge p-badge-danger"></span> 
+            </td>-->
+
+            <td><a href ="#" (click)="deleteItem(rowData)">Borrar</a></td>
         </tr>   
     </ng-template>
 </p-table>

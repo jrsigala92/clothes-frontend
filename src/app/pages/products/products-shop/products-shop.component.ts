@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { Product } from 'src/app/shared/interfaces/product';
 
 @Component({
   selector: 'app-products-shop',
@@ -8,7 +9,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
   styleUrls: ['./products-shop.component.css']
 })
 export class ProductsShopComponent implements OnInit {
-  
+
   products: Array<any>;
   constructor(private router: Router, private activatedRoute:ActivatedRoute, private productsService:ProductService) { }
 
@@ -26,5 +27,11 @@ export class ProductsShopComponent implements OnInit {
     }, (err) =>{
       console.error(err);
     });
+   }
+
+   buyProduct(product: Product){
+     this.productsService.buy({productId: product.id, userId: 3 }).subscribe((response) => {
+      console.log(response);
+     });
    }
 }

@@ -74,7 +74,7 @@ export class CategoryFormComponent implements OnInit {
         console.error(err);
       });
     // mostrar modal
-    
+
   }
   validateSubmit(e) {
     if (e.key === 'Enter') {

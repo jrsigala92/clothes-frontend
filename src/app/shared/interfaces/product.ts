@@ -1,5 +1,6 @@
 import { Category } from './category';
 import { Status } from './status';
+import { User } from './user';
 
 export interface Product {
     id: number;
@@ -7,6 +8,7 @@ export interface Product {
     description: string;
     price: number;
     userID:number;
+    user: User;
     createdAt: Date;
     createdAtFormated: string;
     categoryID:number;

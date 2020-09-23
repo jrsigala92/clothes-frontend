@@ -15,17 +15,19 @@
     </div>
     <div>
         <input type="text" name="descriptionName" formControlName="description" pInputText/>
-        <!-- {{form.controls.username.valid}} -->
-        <span *ngIf="form.controls.description.errors && form.controls.description.dirty">
-            {{form.controls.description.errors.required ?  getErrorMessage('required') : getErrorMessage('minLength')}}
+    </div>
+    <div>
+        <input type="text" name="price" formControlName="price" pInputText/> 
+        <span *ngIf="form.controls.price.errors && form.controls.price.dirty">
+            {{getErrorMessage('required')}}
         </span>
     </div>
     <div>
-        <p-dropdown [options]="categories" optionLabel="name"></p-dropdown>
+        <p-dropdown [options]="categories" formControlName="categoryID" optionLabel="name"></p-dropdown>
     </div>
 
     <div>
-        <p-dropdown [options]="users" optionLabel="email"></p-dropdown>
+        <p-dropdown [options]="users" formControlName="userID" optionLabel="email"></p-dropdown>
     </div>
  
     <button [disabled]="form.invalid" >Guardar</button>

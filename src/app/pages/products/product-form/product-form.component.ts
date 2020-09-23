@@ -21,10 +21,10 @@ export class ProductFormComponent implements OnInit {
   users: User[];
 
   form: FormGroup;
-  formSubmitted: Boolean;
+  formSubmitted: boolean;
   isLoading: boolean;
-  defaultDropdownCategory: Category = {id:0, name:'Seleccionar'};
-  defaultDropdownUser: User = {id:0, firstName:'Seleccionar'};
+  defaultDropdownCategory: Category = {id: 0, name: 'Seleccionar'};
+  defaultDropdownUser: User = {id: 0, email: 'Seleccionar'};
   constructor(
     private productsService: ProductService,
     private categoriesService: CategoryService,
@@ -39,25 +39,29 @@ export class ProductFormComponent implements OnInit {
     this.activatedRoute.params.subscribe(urlParams => {
       console.log(urlParams);
       this.getProduct(urlParams.productId);
-      this.getCategories();
-      this.getUsers();
     });
 
     this.form = this.fb.group({
-      id: ['id', [Validators.required]],
-      name: ['name', [Validators.required, Validators.minLength(6)]],
-      description: ['description', [Validators.required, Validators.minLength(6)]],
-      categoryID: ['categoryID', [Validators.required]],
-      userID: ['userID', [Validators.required]]
+      id: [''],
+      name: ['', [Validators.required]],
+      description: [''],
+      categoryID: ['', [Validators.required]],
+      userID: ['', [Validators.required]],
+      price: ['']
     });
   }
 
-  getProduct(id: number): void {
+  async getProduct(id: number) {
     this.isLoading = true;
+    await this.getCategories();
+    await this.getUsers();
     this.productsService.getElement(id).subscribe((response) => {
       this.product = response;
       this.isLoading = false;
-      console.log(response);
+      this.form.patchValue({ ...this.product });
+
+      this.form.controls['categoryID'].setValue(this.product.category);
+      this.form.controls['userID'].setValue(this.product.user);
     }, (err) => {
       console.error('Product not found');
       this.isLoading = false;
@@ -69,8 +73,7 @@ export class ProductFormComponent implements OnInit {
     this.categoriesService.getAll().subscribe(response => {
       this.categories = response;
       this.categories.unshift(this.defaultDropdownCategory);
-      this.users.unshift(this.defaultDropdownUser);
-      console.log(this.categories)
+      console.log(this.categories);
     }, (err) =>{
       console.error(err);
     });
@@ -79,6 +82,7 @@ export class ProductFormComponent implements OnInit {
   async getUsers(){
     this.userService.getAll().subscribe(response => {
       this.users = response;
+      this.users.unshift(this.defaultDropdownUser);
       console.log(this.users);
     }, (err) =>{
       console.error(err);
@@ -97,19 +101,19 @@ export class ProductFormComponent implements OnInit {
     const user = this.form.getRawValue();
     console.log(user);
     this.productsService.save(user).subscribe(response => {
-      console.log('se guardo correctamente');
+      this.router.navigate(['..'], {
+        relativeTo: this.activatedRoute,
+        queryParams: {
+          success: true
+        }
+      });
     },
       err => {
         console.error(err);
       });
-    console.log("Guardar Usuario", user);
+    console.log('Guardar Usuario', user);
     // mostrar modal
-    this.router.navigate(['..'], {
-      relativeTo: this.activatedRoute,
-      queryParams: {
-        success: true
-      }
-    });
+
   }
 
   getErrorMessage(controlName) {

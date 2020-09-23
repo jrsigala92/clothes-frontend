@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class CrudService {
 
-  private apiUrl = 'http://localhost:3000/';
+  protected apiUrl = 'http://localhost:3000/';
   protected endpoint: string;
-  constructor(private httpService: HttpService) { }
+  constructor(protected httpService: HttpService) { }
 
   getAll(): Observable<any> {
     return this.httpService.get(this.apiUrl + this.endpoint);
