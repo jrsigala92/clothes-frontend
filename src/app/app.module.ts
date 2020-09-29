@@ -38,6 +38,9 @@ import { ProductsShopComponent } from './pages/products/products-shop/products-s
 import { PercentagesComponent } from './pages/percentages/percentages.component';
 import { PercentageFormComponent } from './pages/percentages/percentage-form/percentage-form.component';
 import { PercentagesListComponent } from './pages/percentages/percentages-list/percentages-list.component';
+import { ClassificationFormComponent } from './pages/classifications/classification-form/classification-form.component';
+import { ClassificationsComponent } from './pages/classifications/classifications.component';
+import { ClassificationsListComponent } from './pages/classifications/classifications-list/classifications-list.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,10 @@ import { PercentagesListComponent } from './pages/percentages/percentages-list/p
     ProductsShopComponent,
     PercentagesComponent,
     PercentageFormComponent,
-    PercentagesListComponent
+    PercentagesListComponent,
+    ClassificationFormComponent,
+    ClassificationsComponent,
+    ClassificationsListComponent
   ],
   imports: [
     BrowserModule,

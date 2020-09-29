@@ -8,6 +8,8 @@ import { CategoryService } from 'src/app/shared/services/category.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Category } from 'src/app/shared/interfaces/category';
 import { User } from 'src/app/shared/interfaces/user';
+import { Classification } from 'src/app/shared/interfaces/classification';
+import { ClassificationService } from 'src/app/shared/services/classification.service';
 
 @Component({
   selector: 'app-product-form',
@@ -19,15 +21,18 @@ export class ProductFormComponent implements OnInit {
   @Input() product: Product;
   categories: Category[];
   users: User[];
+  classifications: Classification[];
 
   form: FormGroup;
   formSubmitted: boolean;
   isLoading: boolean;
   defaultDropdownCategory: Category = {id: 0, name: 'Seleccionar'};
   defaultDropdownUser: User = {id: 0, email: 'Seleccionar'};
+  defaultDropdownClassification: Classification  = {id: 0, name: 'Seleccionar'};
   constructor(
     private productsService: ProductService,
     private categoriesService: CategoryService,
+    private classificationsService: ClassificationService,
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -46,6 +51,7 @@ export class ProductFormComponent implements OnInit {
       name: ['', [Validators.required]],
       description: [''],
       categoryID: ['', [Validators.required]],
+      classificationID: ['', [Validators.required]],
       userID: ['', [Validators.required]],
       price: ['']
     });
@@ -55,6 +61,7 @@ export class ProductFormComponent implements OnInit {
     this.isLoading = true;
     await this.getCategories();
     await this.getUsers();
+    await this.getClassifications();
     this.productsService.getElement(id).subscribe((response) => {
       this.product = response;
       this.isLoading = false;
@@ -62,6 +69,7 @@ export class ProductFormComponent implements OnInit {
 
       this.form.controls['categoryID'].setValue(this.product.category);
       this.form.controls['userID'].setValue(this.product.user);
+      this.form.controls['classificationID'].setValue(this.product.classification);
     }, (err) => {
       console.error('Product not found');
       this.isLoading = false;
@@ -74,6 +82,15 @@ export class ProductFormComponent implements OnInit {
       this.categories = response;
       this.categories.unshift(this.defaultDropdownCategory);
       console.log(this.categories);
+    }, (err) =>{
+      console.error(err);
+    });
+  }
+
+  async getClassifications(){
+    this.classificationsService.getAll().subscribe(response => {
+      this.classifications = response;
+      this.classifications.unshift(this.defaultDropdownClassification);
     }, (err) =>{
       console.error(err);
     });

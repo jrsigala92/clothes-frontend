@@ -17,6 +17,9 @@ import { ProductsShopComponent } from './pages/products/products-shop/products-s
 import { PercentagesComponent } from './pages/percentages/percentages.component';
 import { PercentageFormComponent } from './pages/percentages/percentage-form/percentage-form.component';
 import { PercentagesListComponent } from './pages/percentages/percentages-list/percentages-list.component';
+import { ClassificationsComponent } from './pages/classifications/classifications.component';
+import { ClassificationsListComponent } from './pages/classifications/classifications-list/classifications-list.component';
+import { ClassificationFormComponent } from './pages/classifications/classification-form/classification-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -38,6 +41,11 @@ const routes: Routes = [
   [
     {path: '', component: CategoriesListComponent},
     {path: ':categoryId', component: CategoryFormComponent}
+  ]},
+  {path: 'classifications', component: ClassificationsComponent, children:
+  [
+    {path: '', component: ClassificationsListComponent},
+    {path: ':classificationId', component: ClassificationFormComponent}
   ]},
   {path: 'percentages', component: PercentagesComponent, children:
   [

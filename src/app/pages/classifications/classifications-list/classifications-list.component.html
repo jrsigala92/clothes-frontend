@@ -1,0 +1,3 @@
+<h1>Listado de Clasificaciones</h1>
+<span> <a routerLink="../classifications/create">Crear</a></span><br />
+<app-data-list *ngIf="classifications" [data] ="classifications" [columns]="columns" (onItemDelete)="handleClassificationDelete($event)" (onItemSelect)="handleClassificationSelect($event)"></app-data-list>

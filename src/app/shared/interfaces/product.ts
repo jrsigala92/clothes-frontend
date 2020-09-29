@@ -1,4 +1,5 @@
 import { Category } from './category';
+import { Classification } from './classification';
 import { Status } from './status';
 import { User } from './user';
 
@@ -18,4 +19,6 @@ export interface Product {
     // category:string;
     statusID:number;
     status:Status;
+    classification: Classification;
+    classificationID: number;
 }

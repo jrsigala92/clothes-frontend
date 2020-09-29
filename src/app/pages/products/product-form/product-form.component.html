@@ -27,6 +27,10 @@
     </div>
 
     <div>
+        <p-dropdown [options]="classifications" formControlName="classificationID" optionLabel="name"></p-dropdown>
+    </div>
+
+    <div>
         <p-dropdown [options]="users" formControlName="userID" optionLabel="email"></p-dropdown>
     </div>
  
