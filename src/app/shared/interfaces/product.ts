@@ -16,7 +16,7 @@ export interface Product {
     category:Category;
     categoryName:string;
     statusName:string;
-    // category:string;
+    size:string;
     statusID:number;
     status:Status;
     classification: Classification;

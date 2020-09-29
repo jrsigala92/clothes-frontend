@@ -50,6 +50,7 @@ export class ProductFormComponent implements OnInit {
       id: [''],
       name: ['', [Validators.required]],
       description: [''],
+      size: ['', [Validators.required]],
       categoryID: ['', [Validators.required]],
       classificationID: ['', [Validators.required]],
       userID: ['', [Validators.required]],
@@ -67,9 +68,9 @@ export class ProductFormComponent implements OnInit {
       this.isLoading = false;
       this.form.patchValue({ ...this.product });
 
-      this.form.controls['categoryID'].setValue(this.product.category);
-      this.form.controls['userID'].setValue(this.product.user);
-      this.form.controls['classificationID'].setValue(this.product.classification);
+      this.form.controls.categoryID.setValue(this.product.category);
+      this.form.controls.userID.setValue(this.product.user);
+      this.form.controls.classificationID.setValue(this.product.classification);
     }, (err) => {
       console.error('Product not found');
       this.isLoading = false;

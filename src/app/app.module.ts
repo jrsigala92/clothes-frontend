@@ -10,6 +10,7 @@ import {CalendarModule} from 'primeng/calendar';
 import {ButtonModule} from 'primeng/button';
 import {PanelModule} from 'primeng/panel';
 import {CardModule} from 'primeng/card';
+import {DialogModule} from 'primeng/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,6 +42,7 @@ import { PercentagesListComponent } from './pages/percentages/percentages-list/p
 import { ClassificationFormComponent } from './pages/classifications/classification-form/classification-form.component';
 import { ClassificationsComponent } from './pages/classifications/classifications.component';
 import { ClassificationsListComponent } from './pages/classifications/classifications-list/classifications-list.component';
+import { WithdrawComponent } from './pages/users/user-form/withdraw/withdraw.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { ClassificationsListComponent } from './pages/classifications/classifica
     PercentagesListComponent,
     ClassificationFormComponent,
     ClassificationsComponent,
-    ClassificationsListComponent
+    ClassificationsListComponent,
+    WithdrawComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,8 @@ import { ClassificationsListComponent } from './pages/classifications/classifica
     CalendarModule,
     ButtonModule,
     PanelModule,
-    CardModule
+    CardModule,
+    DialogModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

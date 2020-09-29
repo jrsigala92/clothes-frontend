@@ -60,8 +60,10 @@
         </div>
     </form>
 </p-panel>
-<p-panel header="Balance" [toggleable]="true">
-    {{user.firstName}} cuenta con: <span class="p-badge p-badge-xl p-badge-warning">${{user.balance}}</span>
+<p-panel *ngIf="user.firstName" header="Balance" [toggleable]="true">
+    {{user.firstName}} cuenta con: <span class="p-badge p-badge-xl p-badge-warning">${{user.balance}}</span>     
+    
+    <button pButton [disabled]="!user.balance || user.balance < 0" type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Retirar"></button>
 </p-panel>
 
 <div *ngIf="!isLoading">
@@ -97,7 +99,23 @@
 </div>
 <p *ngIf="isLoading">Cargando...</p>
 
-
+<p-dialog header="Retiro de Efectivo" [(visible)]="display" [style]="{height: '23vw'}">
+    <label>Tipo de Cuenta:</label>    
+    <div>
+        <p-dropdown appendTo="body" [options]="accountTypes" [(ngModel)]="selectedAccountType"></p-dropdown>
+    </div>
+    <label>Número:</label>    
+    <div>
+        <input pInputText type="text" name="cuenta" placeholder="63619..." [(ngModel)]="enteredAccount">
+    </div>
+    <label>Monto a Retirar:</label>    
+    <div>
+        <input pInputText type="text" name="cuenta" placeholder="$" [(ngModel)]="quantityToWithdraw">
+    </div>
+    <p-footer>
+        <button pButton type="button" label="Solicitar Retiro" class="p-button-success" (click)="withdraw()" [disabled]="user.balance < quantityToWithdraw"></button>
+    </p-footer>
+</p-dialog>
 
 
 <!-- =========================

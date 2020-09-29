@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormErrorsService } from 'src/app/shared/services/form-errors.service';
 import { DatePipe } from '@angular/common';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-user-form',
@@ -14,13 +15,13 @@ import { DatePipe } from '@angular/common';
 export class UserFormComponent implements OnInit {
   @Input() user: User;
   isLoading: boolean;
-  // userData:User = {
-  //   name:'',
-  //   username:'',
-  //   email:''
-  // };
+  accountTypes: SelectItem[];
+  display = false;
   form: FormGroup;
   formSubmitted: boolean;
+  selectedAccountType: string;
+  enteredAccount: string;
+  quantityToWithdraw: number;
 
   constructor(
     private userService: UserService,
@@ -37,6 +38,13 @@ export class UserFormComponent implements OnInit {
       this.getUser(urlParams.userId);
     });
 
+    this.accountTypes = [
+      { label: 'Seleccionar Método de pago', value: null },
+      { label: 'CLABE', value: 'CLABE' },
+      { label: 'Tarjeta de débito', value: 'Tarjeta de débito' },
+      { label: 'Número de cuenta', value: 'Número de cuenta' },
+    ];
+
     this.form = this.fb.group({
       // id: [],
       firstName: ['', [Validators.required]],
@@ -47,6 +55,9 @@ export class UserFormComponent implements OnInit {
     });
   }
 
+  showDialog() {
+          this.display = true;
+      }
   getUser(id: number): void {
     this.isLoading = true;
     this.userService.getElement(id).subscribe((response) => {
@@ -71,6 +82,10 @@ export class UserFormComponent implements OnInit {
     this.router.navigate(['..'], {
       relativeTo: this.activatedRoute
     });
+  }
+
+  withdraw(){
+    console.log('Retirar');
   }
 
   saveUser() {

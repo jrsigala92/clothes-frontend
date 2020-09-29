@@ -23,6 +23,12 @@
         </span>
     </div>
     <div>
+        <input type="text" name="size" formControlName="size" pInputText/> 
+        <span *ngIf="form.controls.size.errors && form.controls.size.dirty">
+            {{getErrorMessage('required')}}
+        </span>
+    </div>
+    <div>
         <p-dropdown [options]="categories" formControlName="categoryID" optionLabel="name"></p-dropdown>
     </div>
 
