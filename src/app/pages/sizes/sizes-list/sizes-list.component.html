@@ -1,0 +1,3 @@
+<h1>Listado de Tallas</h1>
+<span> <a routerLink="../sizes/create">Crear</a></span><br />
+<app-data-list *ngIf="sizes" [data] ="sizes" [columns]="columns" (onItemDelete)="handleSizeDelete($event)" (onItemSelect)="handleSizeSelect($event)"></app-data-list>

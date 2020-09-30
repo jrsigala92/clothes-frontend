@@ -1,0 +1,21 @@
+<h3>Talla:</h3>
+    <!-- <p>El usuario seleccionado es</p>
+    <p *ngIf="user" >{{user.id}}</p> -->
+
+
+<form [formGroup]="form" (submit)="saveSize()">
+    <!-- <p> es valido? {{form.valid}}</p> -->
+    <input hidden type="text" name="identifier" formControlName="id" />
+    <!-- <div> -->
+    <div>
+        <input type="text" name="nombre" formControlName="name" /> 
+        <span *ngIf="form.controls.name.errors && form.controls.name.dirty">
+            {{getErrorMessage('required')}}
+        </span>
+    </div>
+ 
+    <button [disabled]="form.invalid" >Guardar</button>
+</form>
+<p *ngIf="isLoading">Cargando...</p>
+
+<button (click) = "goBack()">Regresar</button>

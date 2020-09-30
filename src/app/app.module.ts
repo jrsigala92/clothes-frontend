@@ -43,6 +43,10 @@ import { ClassificationFormComponent } from './pages/classifications/classificat
 import { ClassificationsComponent } from './pages/classifications/classifications.component';
 import { ClassificationsListComponent } from './pages/classifications/classifications-list/classifications-list.component';
 import { WithdrawComponent } from './pages/users/user-form/withdraw/withdraw.component';
+import { SizesComponent } from './pages/sizes/sizes.component';
+import { SizeService } from './shared/services/size.service';
+import { SizeFormComponent } from './pages/sizes/size-form/size-form.component';
+import { SizesListComponent } from './pages/sizes/sizes-list/sizes-list.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +75,10 @@ import { WithdrawComponent } from './pages/users/user-form/withdraw/withdraw.com
     ClassificationFormComponent,
     ClassificationsComponent,
     ClassificationsListComponent,
-    WithdrawComponent
+    WithdrawComponent,
+    SizesComponent,
+    SizeFormComponent,
+    SizesListComponent
   ],
   imports: [
     BrowserModule,
