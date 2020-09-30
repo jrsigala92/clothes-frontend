@@ -1,6 +1,8 @@
 <!-- <h1>Datos del usuario:</h1> -->
 <!-- <p>El usuario seleccionado es</p>
     <p *ngIf="user" >{{user.id}}</p> -->
+    
+<script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
 <p-panel header="Datos del usuario" [toggleable]="true">
     <form [formGroup]="form" (submit)="saveUser()">
         <!-- <p>{{form.valid}}</p> -->
@@ -100,7 +102,7 @@
 <p *ngIf="isLoading">Cargando...</p>
 
 <p-dialog header="Retiro de Efectivo" [(visible)]="display" [style]="{height: '23vw'}">
-    <label>Tipo de Cuenta:</label>    
+    <!-- <label>Tipo de Cuenta:</label>    
     <div>
         <p-dropdown appendTo="body" [options]="accountTypes" [(ngModel)]="selectedAccountType"></p-dropdown>
     </div>
@@ -114,25 +116,36 @@
     </div>
     <p-footer>
         <button pButton type="button" label="Solicitar Retiro" class="p-button-success" (click)="withdraw()" [disabled]="user.balance < quantityToWithdraw"></button>
-    </p-footer>
+    </p-footer> -->
+    <form action="" method="POST" id="card-form">
+        <span class="card-errors"></span>
+        <div>
+          <label>
+            <span>Cardholder name</span>
+            <input size="20" data-conekta="card[name]" type="text">
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>Card number</span>
+            <input size="20" data-conekta="card[number]" type="text">
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>CVC</span>
+            <input size="4" data-conekta="card[cvc]" type="text">
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>Expiration date (MM/YYYY)</span>
+            <input size="2" data-conekta="card[exp_month]" type="text">
+          </label>
+          <span>/</span>
+          <input size="4" data-conekta="card[exp_year]" type="text">
+        </div>
+        <button (click)="withdraw()" type="submit">Create token</button>
+      </form>
+      
 </p-dialog>
-
-
-<!-- =========================
-<label>producto</label>
-<input />
-<label for="">descripcion</label>
-<input/> -->
-<!-- <label>numero de piezas</label> -->
-<!-- <label>lote de reciclaje?</label>
-<input type="checkbox"/>
-
-<label>cantidad de piezas</label>
-<input />
-
-===========================
-
-<label>nombre</label>
-<input value="pantalon" />
-<select><option>Seleccionar lote</option></select> -->
-

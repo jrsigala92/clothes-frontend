@@ -37,7 +37,7 @@
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/responsive.css"
             ],
-            "scripts": []
+            "scripts": ["src/assets/js/conekta.js"]
           },
           "configurations": {
             "production": {
@@ -112,7 +112,7 @@
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/responsive.css"
             ],
-            "scripts": []
+            "scripts": ["src/assets/js/conekta.js"]
           }
         },
         "lint": {
