@@ -6,6 +6,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormErrorsService } from 'src/app/shared/services/form-errors.service';
 import { DatePipe } from '@angular/common';
 import { SelectItem } from 'primeng/api';
+// import { error } from 'c onsole';
+
+// declare function setPublicKey(key: any): any;
+declare var Conekta: any;
+
+
+// declare function setPublicKey(key: any): any;
+
 
 @Component({
   selector: 'app-user-form',
@@ -14,6 +22,7 @@ import { SelectItem } from 'primeng/api';
 })
 export class UserFormComponent implements OnInit {
   @Input() user: User;
+  payment: any;
   isLoading: boolean;
   accountTypes: SelectItem[];
   display = false;
@@ -56,6 +65,7 @@ export class UserFormComponent implements OnInit {
   }
 
   showDialog() {
+          console.log(Conekta.setPublicKey('key_KJysdbf6PotS2ut2'));
           this.display = true;
       }
   getUser(id: number): void {
@@ -84,7 +94,10 @@ export class UserFormComponent implements OnInit {
     });
   }
 
-  withdraw(){
+  withdraw() {
+    Conekta.Token.create('',
+      () => { console.log(''); },
+      () => { console.error(''); });
     console.log('Retirar');
   }
 
