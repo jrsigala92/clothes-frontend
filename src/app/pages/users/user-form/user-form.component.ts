@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { User } from '../../../shared/interfaces/user';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { FormErrorsService } from 'src/app/shared/services/form-errors.service';
 import { DatePipe } from '@angular/common';
 import { SelectItem } from 'primeng/api';
+import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 // import { error } from 'c onsole';
 
 // declare function setPublicKey(key: any): any;
@@ -20,7 +21,7 @@ declare var Conekta: any;
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss']
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() user: User;
   payment: any;
   isLoading: boolean;
@@ -32,13 +33,25 @@ export class UserFormComponent implements OnInit {
   enteredAccount: string;
   quantityToWithdraw: number;
 
+    @ViewChild('cardInfo', { static: false }) cardInfo: ElementRef;
+
+    stripe;
+    loading = false;
+    confirmation;
+
+    card: any;
+    cardHandler = this.onChange.bind(this);
+    error: string;
+
   constructor(
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private formError: FormErrorsService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private cd: ChangeDetectorRef,
+    private stripeService: AngularStripeService) {
   }
 
   ngOnInit() {
@@ -88,6 +101,16 @@ export class UserFormComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(){
+    this.stripeService.setPublishableKey('pk_test_2syov9fTMRwOxYG97AAXbOgt008X6NL46o').then(stripe => {
+      this.stripe = stripe;
+      const elements = stripe.elements();
+      this.card = elements.create('card');
+      this.card.mount(this.cardInfo.nativeElement);
+      this.card.addEventListener('change', this.cardHandler);
+});
+  }
+
   goBack() {
     this.router.navigate(['..'], {
       relativeTo: this.activatedRoute
@@ -132,5 +155,28 @@ export class UserFormComponent implements OnInit {
     console.log(controlName);
     console.log(this.formError.getErrorMessage(controlName));
     return this.formError.getErrorMessage(controlName);
+  }
+  onChange({ error }) {
+    if (error) {
+      this.error = error.message;
+    } else {
+      this.error = null;
+    }
+    this.cd.detectChanges();
+  }
+
+  ngOnDestroy() {
+    this.card.removeEventListener('change', this.cardHandler);
+    this.card.destroy();
+  }
+
+  async onSubmit(form: NgForm) {
+    const { token, error } = await this.stripe.createToken(this.card);
+
+    if (error) {
+      console.log('Error:', error);
+    } else {
+      console.log('Success!', token);
+    }
   }
 }

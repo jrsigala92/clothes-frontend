@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
     });
   }
   login(){
+    alert('login');
+
     console.log('login');
     if (this.form.invalid) { return; }
     const credentials: Credentials = this.form.getRawValue();

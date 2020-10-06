@@ -1243,7 +1243,8 @@
     };
   
     Conekta.Token.create = function (token_form, success_callback, failure_callback) {
-      return makeRequest('create', token_form, success_callback, failure_callback);
+      return 'test';
+      // return makeRequest('create', token_form, success_callback, failure_callback);
     };
   
     Conekta.token = {};

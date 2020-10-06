@@ -47,6 +47,7 @@ import { SizesComponent } from './pages/sizes/sizes.component';
 import { SizeService } from './shared/services/size.service';
 import { SizeFormComponent } from './pages/sizes/size-form/size-form.component';
 import { SizesListComponent } from './pages/sizes/sizes-list/sizes-list.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [

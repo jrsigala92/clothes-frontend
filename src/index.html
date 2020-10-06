@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>ClothesApp</title>
@@ -16,8 +17,15 @@
   <link href="assets/css/responsive.css" rel="stylesheet">
   <link href="assets/css/colors.css" rel="stylesheet">
   <link href="assets/css/ekko-lightbox.css" rel="stylesheet"> -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <script type="text/javascript">
+    const stripe = Stripe('use your test publishable key');
+    const elements = stripe.elements();
+  </script>
 </head>
+
 <body class="mat-typography">
   <app-root></app-root>
 </body>
+
 </html>

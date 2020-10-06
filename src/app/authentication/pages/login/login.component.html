@@ -1,14 +1,17 @@
 <h2>Iniciar Sesion</h2>
 <p *ngIf="error">{{errorMessage}}</p>
+ <span>{{form.valid}}</span>
 <form [formGroup]="form" (submit)="login()">
     <div>
-        <input type="email" formControlName="username" placeholder="Usuario" pInputText />
+        <input type="number" formControlName="username" placeholder="Usuario" pInputText />
     </div>
     <div>
         <input type="password" formControlName="password" placeholder="Password" pInputText />
     </div>
     <div>
-        <button pButton type="button" label="Iniciar Sesion" class="p-button-success"></button>
+        <!-- <button pButton type="button" label="Iniciar Sesion" class="p-button-success"></button> -->
+        
+    <button>Guardar</button>
     </div>
 </form>
 
