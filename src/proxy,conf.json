@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+    "target":"https://charomxfront.herokuapp.com/",
+    "secure":false,
+    "logLevel":"debug"
+    }
+}
