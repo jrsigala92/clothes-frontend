@@ -8,13 +8,13 @@
     <input hidden type="text" name="identifier" formControlName="id" />
     <!-- <div> -->
     <div>
-        <input type="text" name="nombre" formControlName="name" /> 
+        <input type="text" name="nombre" formControlName="name" placeholder="Nombre" pInputText/> 
         <span *ngIf="form.controls.name.errors && form.controls.name.dirty">
             {{getErrorMessage('required')}}
         </span>
     </div>
     <div>
-        <input type="text" name="descriptionName" formControlName="description" />
+        <input type="text" name="descriptionName" formControlName="description" placeholder="Descripción" pInputText/>
         <!-- {{form.controls.username.valid}} -->
         <span *ngIf="form.controls.description.errors && form.controls.description.dirty">
             {{form.controls.description.errors.required ?  getErrorMessage('required') : getErrorMessage('minLength')}}

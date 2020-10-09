@@ -4,11 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { ButtonModule } from 'primeng/button';
+import { AppComponent } from '../app.component';
 
 
 
@@ -22,6 +23,7 @@ import { ButtonModule } from 'primeng/button';
     HttpClientModule,
     ButtonModule,
     InputTextModule,
-  ]
+  ],
+  bootstrap: [AppComponent]
 })
 export class AuthenticationModule { }

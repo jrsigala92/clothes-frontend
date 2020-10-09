@@ -12,22 +12,22 @@
         <input type="email" name="name" formControlName="username" placeholder="Email" pInputText />
     </div>
     <div>
-        <input type="phone" name="telefono" placeholder="Teléfono" formControlName="phone">
+        <input type="phone" name="telefono" placeholder="Teléfono" formControlName="phone" pInputText>
         <span *ngIf="form.controls.phone.errors && form.controls.phone.dirty">
             {{form.controls.phone.errors.required ? getErrorMessage('required') : getErrorMessage('phone')}}
         </span>
     </div>
     <div>
-        <input type="address" name="direccion" placeholder="Dirección" formControlName="address">
+        <input type="address" name="direccion" placeholder="Dirección" formControlName="address" pInputText>
         <span *ngIf="form.controls.address.errors && form.controls.address.dirty">
             {{form.controls.address.errors.required ? getErrorMessage('required') : getErrorMessage('address')}}
         </span>
     </div>
     <div>
-        <input type="password" name="name" formControlName="password" placeholder="contraseña" pInputText />
+        <input type="password" name="name" formControlName="password" placeholder="Contraseña" pInputText />
     </div>
     <div>
-        <input type="password" name="confirmation" formControlName="confirmPassword" placeholder="confirmar contraseña" pInputText />
+        <input type="password" name="confirmation" formControlName="confirmPassword" placeholder="Confirmar Contraseña" pInputText />
     </div>
     <span *ngIf="form.errors">Las contraseñas no coinciden</span>
     <!-- <span>{{form.valid}}</span> -->

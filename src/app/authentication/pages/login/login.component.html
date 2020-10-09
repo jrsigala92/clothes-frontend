@@ -1,6 +1,5 @@
 <h2>Iniciar Sesion</h2>
 <p *ngIf="error">{{errorMessage}}</p>
- <span>{{form.valid}}</span>
 <form [formGroup]="form" (submit)="login()">
     <div>
         <input type="number" formControlName="username" placeholder="Usuario" pInputText />
