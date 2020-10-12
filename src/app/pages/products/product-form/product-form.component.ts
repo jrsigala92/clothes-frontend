@@ -29,10 +29,10 @@ export class ProductFormComponent implements OnInit {
   form: FormGroup;
   formSubmitted: boolean;
   isLoading: boolean;
-  defaultDropdownCategory: Category = {id: 0, name: 'Seleccionar'};
-  defaultDropdownUser: User = {id: 0, email: 'Seleccionar'};
-  defaultDropdownClassification: Classification  = {id: 0, name: 'Seleccionar'};
-  defaultDropdownSize: Size  = {id: 0, name: 'Seleccionar'};
+  defaultDropdownCategory: Category = {id: 0, name: 'Seleccionar Categoría'};
+  defaultDropdownUser: User = {id: 0, email: 'Seleccionar Usuario'};
+  defaultDropdownClassification: Classification  = {id: 0, name: 'Seleccionar Clasificación'};
+  defaultDropdownSize: Size  = {id: 0, name: 'Seleccionar Talla'};
 
   constructor(
     private productsService: ProductService,

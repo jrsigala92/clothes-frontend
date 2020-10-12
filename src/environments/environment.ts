@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://charomx.herokuapp.com/'
+  // apiUrl: 'https://charomx.herokuapp.com/'
+  apiUrl: 'http://localhost:3000/'
 };
 
 /*

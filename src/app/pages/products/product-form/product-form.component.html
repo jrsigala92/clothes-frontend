@@ -1,4 +1,4 @@
-<h3>Product:</h3>
+<h3>Producto:</h3>
     <!-- <p>El usuario seleccionado es</p>-->
     <!-- <p *ngIf="product" >{{product.id}}</p>  -->
 
@@ -8,16 +8,16 @@
     <!-- <input hidden type="text" name="identifier" formControlName="id" /> -->
     <!-- <div> -->
     <div>
-        <input type="text" name="nombre" formControlName="name" pInputText/> 
+        <input type="text" name="nombre" formControlName="name" placeholder="Nombre" pInputText/> 
         <span *ngIf="form.controls.name.errors && form.controls.name.dirty">
             {{getErrorMessage('required')}}
         </span>
     </div>
     <div>
-        <input type="text" name="descriptionName" formControlName="description" pInputText/>
+        <input type="text" name="descriptionName" formControlName="description" placeholder="Descripcion" pInputText/>
     </div>
     <div>
-        <input type="text" name="price" formControlName="price" pInputText/> 
+        <input type="text" name="price" formControlName="price" placeholder="Precio: $0.0" pInputText/> 
         <span *ngIf="form.controls.price.errors && form.controls.price.dirty">
             {{getErrorMessage('required')}}
         </span>

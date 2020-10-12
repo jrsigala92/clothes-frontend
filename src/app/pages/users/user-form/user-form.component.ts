@@ -7,6 +7,7 @@ import { FormErrorsService } from 'src/app/shared/services/form-errors.service';
 import { DatePipe } from '@angular/common';
 import { SelectItem } from 'primeng/api';
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
+import { Product } from 'src/app/shared/interfaces/product';
 // import { error } from 'c onsole';
 
 // declare function setPublicKey(key: any): any;
@@ -68,7 +69,7 @@ export class UserFormComponent implements OnInit, AfterViewInit, OnDestroy {
     ];
 
     this.form = this.fb.group({
-      // id: [],
+      id: [],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -177,6 +178,14 @@ export class UserFormComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('Error:', error);
     } else {
       console.log('Success!', token);
+      this.userService.buy({tokenId: token.id, productId: 1, userId: 1}).subscribe(res => 
+        console.log(res));
     }
+  }
+
+  buyProduct(product: Product){
+    this.userService.buy({productId: product.id, userId: 3 }).subscribe((response) => {
+     console.log(response);
+    });
   }
 }
