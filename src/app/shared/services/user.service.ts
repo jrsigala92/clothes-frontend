@@ -11,11 +11,4 @@ import { CrudService } from './crud.service';
 export class UserService extends CrudService {
   protected endpoint: string = 'users';
   private users: User[] =[];
-
-  buy(data: any): Observable<any> {
-    console.log(data);
-    // return this.httpService.post(this.apiUrl + this.endpoint + '/buy', data);
-    return this.httpService.post(this.apiUrl + 'products' + '/buy', data);
-
-  }
 }

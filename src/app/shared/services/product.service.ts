@@ -14,4 +14,11 @@ export class ProductService extends CrudService {
     console.log(data);
     return this.httpService.post(this.apiUrl + this.endpoint + '/buy', data);
   }
+  
+  buyWithStripe(data: any): Observable<any> {
+    console.log(data);
+    // return this.httpService.post(this.apiUrl + this.endpoint + '/buy', data);
+    return this.httpService.post(this.apiUrl + this.endpoint + '/buyWithStripe', data);
+
+  }
 }
