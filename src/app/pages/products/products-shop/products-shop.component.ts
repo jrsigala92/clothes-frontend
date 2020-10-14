@@ -18,6 +18,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit, OnDestroy {
   loading = false;
   confirmation;
   productSelected: Product;
+  paymentType = 1;
 
   card: any;
   cardHandler = this.onChange.bind(this);

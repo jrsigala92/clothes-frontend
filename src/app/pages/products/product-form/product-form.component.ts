@@ -131,6 +131,9 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
+  loadImages(e: Event){
+    console.log(e);
+  }
   saveProduct() {
     this.formSubmitted = true;
     console.log('guardando');

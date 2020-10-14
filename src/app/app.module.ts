@@ -11,6 +11,7 @@ import {ButtonModule} from 'primeng/button';
 import {PanelModule} from 'primeng/panel';
 import {CardModule} from 'primeng/card';
 import {DialogModule} from 'primeng/dialog';
+import {FileUploadModule} from 'primeng/fileupload';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -97,7 +98,8 @@ import { MatDialogRef } from '@angular/material/dialog';
     ButtonModule,
     PanelModule,
     CardModule,
-    DialogModule
+    DialogModule,
+    FileUploadModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
