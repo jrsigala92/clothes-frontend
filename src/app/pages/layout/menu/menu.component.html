@@ -4,14 +4,42 @@
         <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
       </button> -->
       <h2>Charó</h2>
+      <nav id="nav">
+        <ul>
+          <li><a class="menu-option"  [routerLink]="'/products'"> Productos </a></li>
+          <li>
+            <a href="#">Configuraciones</a>
+            <ul>        
+              <li><a [routerLink]="'/categories'"> Categorías </a></li>
+              <li><a [routerLink]="'/classifications'"> | Clasificaciones </a></li>
+              <li><a [routerLink]="'/sizes'"> | Tallas </a></li>
+              <li><a [routerLink]="'/statuses'"> | Estatus </a></li>
+              <li><a [routerLink]="'/percentages'"> | Porcentajes </a></li>
+              <li>
+                <a href="#">And a submenu &hellip;</a>
+                <ul>
+                  <li><a href="#">Lorem ipsum dolor</a></li>
+                  <li><a href="#">Phasellus consequat</a></li>
+                  <li><a href="#">Magna phasellus</a></li>
+                  <li><a href="#">Etiam dolore nisl</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Veroeros feugiat</a></li>
+            </ul>
+          </li>
+          <li><a href="left-sidebar.html">Left Sidebar</a></li>
+          <li><a href="right-sidebar.html">Right Sidebar</a></li>
+          <li><a href="no-sidebar.html">No Sidebar</a></li>
+        </ul>
+      </nav>
       <div class="menu-elements">
-        <a class="menu-option" mat-button [routerLink]="'/products'"> | Productos </a>
+        <!-- <a class="menu-option" mat-button [routerLink]="'/products'"> | Productos </a> -->
         <a class="menu-option" mat-button [routerLink]="'/users'"> | Usuarios </a>
-        <a class="menu-option" mat-button [routerLink]="'/categories'"> | Categorías </a>
+        <!-- <a class="menu-option" mat-button [routerLink]="'/categories'"> | Categorías </a>
         <a class="menu-option" mat-button [routerLink]="'/classifications'"> | Clasificaciones </a>
         <a class="menu-option" mat-button [routerLink]="'/sizes'"> | Tallas </a>
         <a class="menu-option" mat-button [routerLink]="'/statuses'"> | Estatus </a>
-        <a class="menu-option" mat-button [routerLink]="'/percentages'"> | Porcentajes </a>
+        <a class="menu-option" mat-button [routerLink]="'/percentages'"> | Porcentajes </a> -->
         <a class="menu-option" mat-button [routerLink]="'/products/shop'"> | Tienda </a>
       </div>
     </mat-toolbar-row>
