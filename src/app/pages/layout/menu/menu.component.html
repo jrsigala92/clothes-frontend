@@ -1,9 +1,9 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <!-- <button mat-icon-button>
+<!-- <mat-toolbar>
+  <mat-toolbar-row> -->
+<!-- <button mat-icon-button>
           <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
         </button> -->
-    <span>
+<!-- <span>
       <h2>Charó</h2>
     </span>
     <span>
@@ -17,8 +17,8 @@
         <a class="menu-option" mat-button [routerLink]="'/products/shop'"> | Tienda </a>
       </div>
     </span>
-    <span class="example-spacer"></span>
-
+    <span class="example-spacer"></span> -->
+<!-- 
     <span>
       <div *ngIf="loggedUser">Hola {{loggedUser}} <br/> <a href="#" (click)="logout()">Cerrar sesion</a></div>
       <div *ngIf="!loggedUser">
@@ -27,4 +27,39 @@
       </div>
     </span>
   </mat-toolbar-row>
-</mat-toolbar>
+</mat-toolbar> -->
+
+<div id="header">
+  <div class="inner">
+  <router-outlet></router-outlet>
+ 
+    <!-- <header>
+      <h1><a href="index.html" id="logo">Helios</a></h1>
+      <hr />
+      <p>Another fine freebie by HTML5 UP</p>
+    </header>
+    <footer>
+      <a href="#banner" class="button circled scrolly">Start</a>
+    </footer> -->
+  </div>
+  <nav id="nav">
+    <ul>
+      <li><a class="menu-option" mat-button [routerLink]="'/products'"> Productos </a></li>
+      <li><a class="menu-option" mat-button [routerLink]="'/users'"> Usuarios </a></li>
+      <li><a class="menu-option" mat-button [routerLink]="'/categories'"> Categorías </a></li>
+      <li><a class="menu-option" mat-button [routerLink]="'/classifications'"> Clasificaciones </a></li>
+      <li><a class="menu-option" mat-button [routerLink]="'/statuses'"> Estatus </a></li>
+      <li><a class="menu-option" mat-button [routerLink]="'/percentages'"> Porcentajes </a></li>
+      <li><a class="menu-option" mat-button [routerLink]="'/products/shop'"> Tienda </a></li>
+    </ul>
+  </nav>
+</div>
+<!-- Scripts -->
+<script src="assets/html5up-helios/assets/js/jquery.min.js"></script>
+<script src="assets/html5up-helios/assets/js/jquery.dropotron.min.js"></script>
+<script src="assets/html5up-helios/assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/html5up-helios/assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/html5up-helios/assets/js/browser.min.js"></script>
+<script src="assets/html5up-helios/assets/js/breakpoints.min.js"></script>
+<script src="assets/html5up-helios/assets/js/util.js"></script>
+<script src="assets/html5up-helios/assets/js/main.js"></script>
