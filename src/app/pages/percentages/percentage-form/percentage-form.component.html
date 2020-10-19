@@ -5,7 +5,7 @@
 
 <form [formGroup]="form" (submit)="savePercentage()">
     <!-- <p> es valido? {{form.valid}}</p> -->
-    <input hidden type="text" name="identifier" formControlName="id" />
+    <input hidden name="identifier" formControlName="id" />
     <!-- <div> -->
     <div>
         <input type="text" name="nombre" formControlName="name" placeholder="Nombre" pInputText/> 

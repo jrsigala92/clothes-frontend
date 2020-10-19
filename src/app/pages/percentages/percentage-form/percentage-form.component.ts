@@ -32,7 +32,7 @@ export class PercentageFormComponent implements OnInit {
 
     this.form = this.fb.group({
       id: [''],
-      name: ['', [Validators.required, Validators.minLength(6)]],
+      name: ['', [Validators.required]],
       quantity: ['']
     });
   }
