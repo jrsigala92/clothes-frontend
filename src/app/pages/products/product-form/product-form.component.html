@@ -1,46 +1,48 @@
 <h3>Producto:</h3>
-    <!-- <p>El usuario seleccionado es</p>-->
-    <!-- <p *ngIf="product" >{{product.id}}</p>  -->
-
-
 <form [formGroup]="form" (submit)="saveProduct()">
-    <!-- <p> es valido? {{form.valid}}</p> -->
-    <!-- <input hidden type="text" name="identifier" formControlName="id" /> -->
-    <!-- <div> -->
-    <div>
-        <input type="text" name="nombre" formControlName="name" placeholder="Nombre" pInputText/> 
-        <span *ngIf="form.controls.name.errors && form.controls.name.dirty">
-            {{getErrorMessage('required')}}
-        </span>
-    </div>
-    <div>
-        <input type="text" name="descriptionName" formControlName="description" placeholder="Descripcion" pInputText/>
-    </div>
-    <div>
-        <input type="text" name="price" formControlName="price" placeholder="Precio: $0.0" pInputText/> 
-        <span *ngIf="form.controls.price.errors && form.controls.price.dirty">
-            {{getErrorMessage('required')}}
-        </span>
-    </div>
-    <div>
-        <p-dropdown [options]="categories" formControlName="categoryID" optionLabel="name"></p-dropdown>
-    </div>
+    <div class="p-grid">
+        <div class="p-col-6">
+            <div>
+                <input type="text" name="nombre" formControlName="name" placeholder="Nombre" pInputText />
+                <span *ngIf="form.controls.name.errors && form.controls.name.dirty">
+                    {{getErrorMessage('required')}}
+                </span>
+            </div>
+            <div>
+                <input type="text" name="descriptionName" formControlName="description" placeholder="Descripcion"
+                    pInputText />
+            </div>
+            <div>
+                <input type="text" name="price" formControlName="price" placeholder="Precio: $0.0" pInputText />
+                <span *ngIf="form.controls.price.errors && form.controls.price.dirty">
+                    {{getErrorMessage('required')}}
+                </span>
+            </div>
+            <div>
+                <p-dropdown [options]="categories"  [autoZIndex]="true" formControlName="categoryID" optionLabel="name"></p-dropdown>
+            </div>
 
-    <div>
-        <p-dropdown [options]="sizes" formControlName="sizeID" optionLabel="name"></p-dropdown>
-    </div>
+            <div>
+                <p-dropdown [options]="sizes"  [autoZIndex]="true" formControlName="sizeID" optionLabel="name"></p-dropdown>
+            </div>
 
-    <div>
-        <p-dropdown [options]="classifications" formControlName="classificationID" optionLabel="name"></p-dropdown>
-    </div>
+            <div>
+                <p-dropdown [options]="classifications"  [autoZIndex]="true" formControlName="classificationID" optionLabel="name">
+                </p-dropdown>
+            </div>
 
-    <div>
-        <p-dropdown [options]="users" formControlName="userID" optionLabel="email"></p-dropdown>
+            <div>
+                <p-dropdown [options]="users"  [autoZIndex]="true" formControlName="userID" optionLabel="email"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-6">
+            <p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="loadImages($event)" multiple="multiple">
+            </p-fileUpload>
+        </div>
+
+        <button [disabled]="form.invalid">Guardar</button>
+        <button (click)="goBack()">Regresar</button>
     </div>
-    <p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="loadImages($event)" multiple="multiple"></p-fileUpload>
-    <button [disabled]="form.invalid" >Guardar</button>
 </form>
 
 <p *ngIf="isLoading">Cargando...</p>
-
-<button (click) = "goBack()">Regresar</button>

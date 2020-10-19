@@ -13,13 +13,6 @@
             {{getErrorMessage('required')}}
         </span>
     </div>
-    <div>
-        <input type="text" name="descriptionName" formControlName="description" placeholder="Descripción" pInputText/>
-        <!-- {{form.controls.username.valid}} -->
-        <span *ngIf="form.controls.description.errors && form.controls.description.dirty">
-            {{form.controls.description.errors.required ?  getErrorMessage('required') : getErrorMessage('minLength')}}
-        </span>
-    </div>
  
     <button [disabled]="form.invalid" >Guardar</button>
 </form>
