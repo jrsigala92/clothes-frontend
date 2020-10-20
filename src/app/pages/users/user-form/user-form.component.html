@@ -164,3 +164,43 @@
         </form>
     </p-panel> -->
 </div>
+<div *ngIf="!user">
+    <h2>Registrar nuevo usuario</h2>
+    <form [formGroup]="form" (submit)="saveUser()">
+        <div>
+            <input type="text" name="name" formControlName="firstName" placeholder="Nombre" pInputText />
+            <!-- <span *ngIf="form.controls.name.errors"> Este campo es requerido</span> -->
+        </div>
+        <div>
+            <input type="text" name="name" formControlName="lastName" placeholder="Apellido" pInputText />
+            <!-- <span *ngIf="form.controls.name.errors"> Este campo es requerido</span> -->
+        </div>
+        <div>
+            <input type="email" name="name" formControlName="email" placeholder="Email" pInputText />
+        </div>
+        <div>
+            <input type="number" name="telefono" placeholder="Teléfono" formControlName="phone" pInputText>
+            <span *ngIf="form.controls.phone.errors && form.controls.phone.dirty">
+                {{form.controls.phone.errors.required ? getErrorMessage('required') : getErrorMessage('phone')}}
+            </span>
+        </div>
+        <div>
+            <input type="text" name="direccion" placeholder="Dirección" formControlName="address" pInputText>
+            <span *ngIf="form.controls.address.errors && form.controls.address.dirty">
+                {{form.controls.address.errors.required ? getErrorMessage('required') : getErrorMessage('address')}}
+            </span>
+        </div>
+        <div>
+            <input type="password" name="name" formControlName="password" placeholder="Contraseña" pInputText />
+        </div>
+        <div>
+            <input type="password" name="confirmation" formControlName="confirmPassword"
+                placeholder="Confirmar Contraseña" pInputText />
+        </div>
+        <span *ngIf="form.errors">Las contraseñas no coinciden</span>
+        <!-- <span>{{form.valid}}</span> -->
+        <button>Guardar</button>
+
+
+    </form>
+</div>

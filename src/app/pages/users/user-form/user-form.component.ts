@@ -62,7 +62,9 @@ export class UserFormComponent implements OnInit {
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
-      address: ['', [Validators.required]]
+      address: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -73,7 +75,7 @@ export class UserFormComponent implements OnInit {
     this.isLoading = true;
     this.userService.getElement(id).subscribe((response) => {
       this.user = response;
-      this.user.products.forEach(e => {
+      this.user?.products.forEach(e => {
         e.categoryName = e.category ? e.category.name : null;
         e.statusName = e.name === 'Camisa' ? 'Vendido' : 'Disponible';
         e.createdAtFormated = this.datePipe.transform(e.createdAt, 'dd-MM-yyyy');
