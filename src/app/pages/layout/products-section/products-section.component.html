@@ -1,0 +1,20 @@
+<section id="banner">
+    <header>
+        <p>
+            Productos disponibles en tienda <strong>Charó</strong>.
+        </p>
+    </header>
+</section>
+<section class="carousel">
+    <div class="reel">
+        <article *ngFor="let product of products">
+            <a href="#" class="image featured"><img src="../../../../assets/html5up-helios/images/pic01.jpg"
+                    alt="" /></a>
+            <header>
+                <h3><a href="#">{{product.name}}</a></h3>
+            </header>
+            <p>{{product.description}}</p>
+            <p>${{product.price}}</p>
+        </article>
+    </div>
+</section>

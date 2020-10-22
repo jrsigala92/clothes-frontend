@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   errorMessage;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
     private authService: AuthenticationService,

@@ -12,8 +12,8 @@ export class WelcomeComponent implements OnInit {
   constructor(private autService: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
-    if (!this.autService.isLoggedIn()){
-      this.router.navigate(['auth/login']);
-    }
+    // if (!this.autService.isLoggedIn()){
+    //   this.router.navigate(['auth/login']);
+    // }
   }
 }

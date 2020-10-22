@@ -21,7 +21,8 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/html5up-helios/images"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
@@ -37,7 +38,18 @@
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/responsive.css"
             ],
-            "scripts": ["src/assets/js/conekta.js"]
+            "scripts": [
+              "src/assets/js/conekta.js",
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/jquery.dropotron.min.js",
+              "src/assets/js/jquery.scrolly.min.js",
+              "src/assets/js/jquery.scrollex.min.js",
+              "src/assets/js/browser.min.js",
+              "src/assets/js/breakpoints.min.js",
+              "src/assets/js/util.js",
+              "src/assets/js/main.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -96,7 +108,8 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/html5up-helios/images"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
@@ -112,7 +125,18 @@
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/responsive.css"
             ],
-            "scripts": ["src/assets/js/conekta.js"]
+            "scripts": [
+              "src/assets/js/conekta.js",
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/jquery.dropotron.min.js",
+              "src/assets/js/jquery.scrolly.min.js",
+              "src/assets/js/jquery.scrollex.min.js",
+              "src/assets/js/browser.min.js",
+              "src/assets/js/breakpoints.min.js",
+              "src/assets/js/util.js",
+              "src/assets/js/main.js"
+            ]
           }
         },
         "lint": {

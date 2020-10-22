@@ -49,6 +49,10 @@ import { SizeService } from './shared/services/size.service';
 import { SizeFormComponent } from './pages/sizes/size-form/size-form.component';
 import { SizesListComponent } from './pages/sizes/sizes-list/sizes-list.component';
 import { MatDialogRef } from '@angular/material/dialog';
+import { NewsComponent } from './pages/layout/news/news.component';
+import { ProductsSectionComponent } from './pages/layout/products-section/products-section.component';
+import { FooterComponent } from './pages/layout/footer/footer.component';
+import { HeaderComponent } from './pages/layout/header/header.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +84,11 @@ import { MatDialogRef } from '@angular/material/dialog';
     WithdrawComponent,
     SizesComponent,
     SizeFormComponent,
-    SizesListComponent
+    SizesListComponent,
+    NewsComponent,
+    ProductsSectionComponent,
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
