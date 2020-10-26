@@ -32,6 +32,26 @@ export class HttpService {
 
     return this.httpClient.post(url, data, {headers} );
   }
+  
+  postImages(url:string, data:any[]){
+    const uploadData = new FormData();
+    for(let i=0 ; i < data.length ; i++){
+      uploadData.append('file', data[i]);
+    } 
+    // data.forEach(item => {
+      
+    // });
+    // const token = this.authService.getToken();
+    const token = 'token';
+    // const headers = new HttpHeaders({
+    //   "content-type": "multipart/form-data"
+    // });
+    let headers = new HttpHeaders();
+    headers.append('Accept', 'application/json');
+
+    return this.httpClient.post(url, uploadData, {headers});
+  }
+
   put(url:string, data:any){
     // const token = this.authService.getToken();
     const token = 'token';

@@ -131,8 +131,14 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
-  loadImages(e: Event){
-    console.log(e);
+  loadImages(e){
+  console.log(e.target.files);
+    this.productsService.uploadImages(e.target.files, this.product.id).subscribe(res => {
+      console.log(res);
+    }, 
+    error => {
+      console.log(error);
+    });
   }
   saveProduct() {
     this.formSubmitted = true;
