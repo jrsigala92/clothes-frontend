@@ -14,7 +14,11 @@ export class ProductService extends CrudService {
     console.log(data);
     return this.httpService.post(this.apiUrl + this.endpoint + '/buy', data);
   }
-  
+
+  getimages(){
+    return this.httpService.get(this.apiUrl + 'files');
+  }
+
   buyWithStripe(data: any): Observable<any> {
     console.log(data);
     // return this.httpService.post(this.apiUrl + this.endpoint + '/buy', data);
@@ -23,8 +27,8 @@ export class ProductService extends CrudService {
 
   uploadImages(data: any[], id: number){
     // console.log(this.httpService.post(this.apiUrl + 'files' + '/uploadMultipleFiles', data));
-    console.log(data);
+    // console.log(data);
 
-    return this.httpService.postImages(this.apiUrl + 'files' + '/uploadMultipleFiles', data);
+    return this.httpService.postImages(this.apiUrl + 'files' + '/uploadMultipleFiles', data, id.toString());
   }
 }

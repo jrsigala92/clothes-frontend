@@ -25,6 +25,7 @@ export class ProductFormComponent implements OnInit {
   users: User[];
   classifications: Classification[];
   sizes: Size[];
+  selectedFiles: any[];
 
   form: FormGroup;
   formSubmitted: boolean;
@@ -47,6 +48,13 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('images');
+    this.productsService.getimages().subscribe(res => {
+      console.log(res);
+    },
+    err => {
+      console.log(err);
+    });
     this.activatedRoute.params.subscribe(urlParams => {
       console.log(urlParams);
       this.getProduct(urlParams.productId);
@@ -70,7 +78,7 @@ export class ProductFormComponent implements OnInit {
     this.getUsers();
     this.getClassifications();
     this.getSizes();
-    
+
     await this.productsService.getElement(id).subscribe((response) => {
       this.product = response;
       this.isLoading = false;
@@ -131,15 +139,23 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
-  loadImages(e){
-  console.log(e.target.files);
-    this.productsService.uploadImages(e.target.files, this.product.id).subscribe(res => {
-      console.log(res);
-    }, 
-    error => {
-      console.log(error);
-    });
+  selectedImages(e){
+    this.selectedFiles = e.target.files;
+    console.log(this.selectedFiles);
   }
+
+  uploadImages(){
+    for (let i = 0; i < this.selectedFiles.length; i++) 
+    {
+      this.productsService.uploadImages(this.selectedFiles[i], this.product.id).subscribe(res => {
+        console.log(res);
+      },
+      error => {
+        console.log(error);
+      });
+    }
+  }
+
   saveProduct() {
     this.formSubmitted = true;
     console.log('guardando');
