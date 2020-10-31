@@ -23,6 +23,7 @@ import { ClassificationFormComponent } from './pages/classifications/classificat
 import { SizesListComponent } from './pages/sizes/sizes-list/sizes-list.component';
 import { SizeFormComponent } from './pages/sizes/size-form/size-form.component';
 import { SizesComponent } from './pages/sizes/sizes.component';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -64,6 +65,11 @@ const routes: Routes = [
   [
     {path: '', component: StatusesListComponent},
     {path: ':statusId', component: StatusFormComponent}
+  ]},
+  {path: 'shoppingCart', component: ShoppingCartComponent, children:
+  [
+    {path: ':userId', component: ShoppingCartComponent},
+    // {path: ':statusId', component: StatusFormComponent}
   ]},
   {path: 'auth', loadChildren: () => import('./authentication/authentication.module').then(module => module.AuthenticationModule) },
 

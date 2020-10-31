@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CrudService } from './crud.service';
 import { Product } from '../interfaces/product';
 import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,9 @@ export class ProductService extends CrudService {
     return this.httpService.post(this.apiUrl + this.endpoint + '/buy', data);
   }
 
-  getimages(){
-    return this.httpService.get(this.apiUrl + 'files');
+  getImage(name: string){
+    // const params = new HttpParams().set('name', name);
+    return this.httpService.getWithParamsObject(this.apiUrl + 'files' +`/${name}`);
   }
 
   buyWithStripe(data: any): Observable<any> {
@@ -26,9 +28,6 @@ export class ProductService extends CrudService {
   }
 
   uploadImages(data: any[], id: number){
-    // console.log(this.httpService.post(this.apiUrl + 'files' + '/uploadMultipleFiles', data));
-    // console.log(data);
-
     return this.httpService.postImages(this.apiUrl + 'files' + '/uploadMultipleFiles', data, id.toString());
   }
 }

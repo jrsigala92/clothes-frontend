@@ -12,6 +12,7 @@ import { Classification } from 'src/app/shared/interfaces/classification';
 import { ClassificationService } from 'src/app/shared/services/classification.service';
 import { SizeService } from 'src/app/shared/services/size.service';
 import { Size } from 'src/app/shared/interfaces/size';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-form',
@@ -26,14 +27,15 @@ export class ProductFormComponent implements OnInit {
   classifications: Classification[];
   sizes: Size[];
   selectedFiles: any[];
+  images: any[] = [];
 
   form: FormGroup;
   formSubmitted: boolean;
   isLoading: boolean;
-  defaultDropdownCategory: Category = {id: 0, name: 'Seleccionar Categoría'};
-  defaultDropdownUser: User = {id: 0, email: 'Seleccionar Usuario'};
-  defaultDropdownClassification: Classification  = {id: 0, name: 'Seleccionar Clasificación'};
-  defaultDropdownSize: Size  = {id: 0, name: 'Seleccionar Talla'};
+  defaultDropdownCategory: Category = { id: 0, name: 'Seleccionar Categoría' };
+  defaultDropdownUser: User = { id: 0, email: 'Seleccionar Usuario' };
+  defaultDropdownClassification: Classification = { id: 0, name: 'Seleccionar Clasificación' };
+  defaultDropdownSize: Size = { id: 0, name: 'Seleccionar Talla' };
 
   constructor(
     private productsService: ProductService,
@@ -44,17 +46,11 @@ export class ProductFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private formError: FormErrorsService) {
+    private formError: FormErrorsService,
+    private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
-    console.log('images');
-    this.productsService.getimages().subscribe(res => {
-      console.log(res);
-    },
-    err => {
-      console.log(err);
-    });
     this.activatedRoute.params.subscribe(urlParams => {
       console.log(urlParams);
       this.getProduct(urlParams.productId);
@@ -88,6 +84,19 @@ export class ProductFormComponent implements OnInit {
       this.form.controls.userID.setValue(this.product.user);
       this.form.controls.classificationID.setValue(this.product.classification);
       this.form.controls.sizeID.setValue(this.product.size);
+      this.product.files.forEach(img => {
+        // this.images.push(this.productsService.getImage(img.name));
+        this.productsService.getImage(img.name).subscribe(imgresponse => {
+          console.log(imgresponse);
+          let objectUrl = URL.createObjectURL(imgresponse);
+          this.images.push(this.sanitizer.bypassSecurityTrustUrl(objectUrl));
+        }, 
+        error=>{
+          console.log(error);
+        });
+      });
+      console.log(this.product.files);
+      console.log(this.images);
     }, (err) => {
       console.error('Product not found');
       this.isLoading = false;
@@ -95,40 +104,40 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
-  async getCategories(){
+  async getCategories() {
     this.categoriesService.getAll().subscribe(response => {
       this.categories = response;
       this.categories.unshift(this.defaultDropdownCategory);
       console.log(this.categories);
-    }, (err) =>{
+    }, (err) => {
       console.error(err);
     });
   }
 
-  async getClassifications(){
+  async getClassifications() {
     this.classificationsService.getAll().subscribe(response => {
       this.classifications = response;
       this.classifications.unshift(this.defaultDropdownClassification);
-    }, (err) =>{
+    }, (err) => {
       console.error(err);
     });
   }
 
-  async getSizes(){
+  async getSizes() {
     this.sizesService.getAll().subscribe(response => {
       this.sizes = response;
       this.sizes.unshift(this.defaultDropdownSize);
-    }, (err) =>{
+    }, (err) => {
       console.error(err);
     });
   }
 
-  async getUsers(){
+  async getUsers() {
     this.userService.getAll().subscribe(response => {
       this.users = response;
       this.users.unshift(this.defaultDropdownUser);
       console.log(this.users);
-    }, (err) =>{
+    }, (err) => {
       console.error(err);
     });
   }
@@ -139,20 +148,22 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
-  selectedImages(e){
+  selectedImages(e) {
     this.selectedFiles = e.target.files;
-    console.log(this.selectedFiles);
   }
 
-  uploadImages(){
-    for (let i = 0; i < this.selectedFiles.length; i++) 
-    {
+  async uploadImages() {
+    await this.iterateThroughFiles();
+  }
+
+  async iterateThroughFiles() {
+    for (let i = 0; i < this.selectedFiles.length; i++) {
       this.productsService.uploadImages(this.selectedFiles[i], this.product.id).subscribe(res => {
         console.log(res);
       },
-      error => {
-        console.log(error);
-      });
+        error => {
+          console.log(error);
+        });
     }
   }
 

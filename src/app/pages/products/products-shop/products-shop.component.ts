@@ -1,36 +1,31 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { Product } from 'src/app/shared/interfaces/product';
-import { NgForm } from '@angular/forms';
-import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ShoppingCartElemService } from 'src/app/shared/services/shopping-cart-elem.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-products-shop',
   templateUrl: './products-shop.component.html',
   styleUrls: ['./products-shop.component.css']
 })
-export class ProductsShopComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ProductsShopComponent implements OnInit {
 
   @ViewChild('cardInfo', { static: false }) cardInfo: ElementRef;
 
-  stripe;
   loading = false;
   confirmation;
-  productSelected: Product;
-  paymentType = 1;
 
-  card: any;
-  cardHandler = this.onChange.bind(this);
-  error: string;
-  display = false;
   products: Array<any>;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private productsService: ProductService,
-    private cd: ChangeDetectorRef,
-    private stripeService: AngularStripeService) { }
+    private sanitizer: DomSanitizer,
+    private shoppingCartService: ShoppingCartElemService,
+    private messageService: MessageService) { }
 
 
   ngOnInit(): void {
@@ -43,6 +38,19 @@ export class ProductsShopComponent implements OnInit, AfterViewInit, OnDestroy {
       this.products = response.filter(item => {
         return item.displayInShop;
       });
+
+      for (let index = 0; index < this.products.length; index++) {
+        if (this.products[index].files.length > 0) {
+          this.productsService.getImage(this.products[index].files[0].name).subscribe(imgresponse => {
+            let objectUrl = URL.createObjectURL(imgresponse);
+            this.products[index].image = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+            console.log(this.products[index]);
+          },
+            error => {
+              console.log(error);
+            });
+        }
+      }
     }, (err) => {
       console.error(err);
     });
@@ -54,43 +62,14 @@ export class ProductsShopComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  showDialog(product: Product) {
-    this.productSelected = product;
-    this.display = true;
-  }
-
-  ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_51HZPYfKegYWvj4PppG7lCzNi8HUbgLYDT4FPzoUTwZgk47IH0jmYgGOz8FcWCMytFdANR0Gvtww1iPAFbx4ydzGY000oUPo0vA').then(stripe => {
-      this.stripe = stripe;
-      const elements = stripe.elements();
-      this.card = elements.create('card');
-      this.card.mount(this.cardInfo.nativeElement);
-      this.card.addEventListener('change', this.cardHandler);
+  addToCart(product){
+    // const shoppingCartElem = {product.id, 1};
+    this.shoppingCartService.insert({productId: product.id, userId: 1, price: product.price, name: product.name}).subscribe(res => {
+      this.messageService.add({severity:'success', summary:'Producto', detail:'Producto agregado al carrito de compras'});
+      console.log(res);
+    }, 
+    err => {
+      this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
     });
-  }
-  onChange({ error }) {
-    if (error) {
-      this.error = error.message;
-    } else {
-      this.error = null;
-    }
-    this.cd.detectChanges();
-  }
-
-  ngOnDestroy() {
-    this.card.removeEventListener('change', this.cardHandler);
-    this.card.destroy();
-  }
-
-  async onSubmit(form: NgForm) {
-    const { token, error } = await this.stripe.createToken(this.card);
-
-    if (error) {
-      console.log('Error:', error);
-    } else {
-      console.log('Success!', token);
-      this.productsService.buyWithStripe({ tokenId: token.id, productId: 1, userId: 1 }).subscribe(res =>
-        this.display = false);
-    }
   }
 }

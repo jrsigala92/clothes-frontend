@@ -21,6 +21,18 @@ export class HttpService {
     return this.httpClient.get(url, {headers});
   }
 
+  getWithParamsObject(url) {
+
+    // const token = this.authService.getToken();
+    const token = 'token';
+
+    // const headers = new HttpHeaders({
+    //   'content-type': 'text/html',
+    //   'authorization': token
+    // });
+    return this.httpClient.get(url, { responseType: 'blob' });
+  }
+
   post(url: string, data: any){
       
     // const token = this.authService.getToken();
@@ -35,22 +47,9 @@ export class HttpService {
 
   postImages(url: string, data: any, id: string){
     const uploadData = new FormData();
-    console.log(data);
-    // for (let i = 0 ; i < data.length ; i++)
-    // {
-    //   console.log(data[i]);
-    //   uploadData.append('file' + i.toString(), data[i]);
-    // }
     uploadData.append('file', data);
     uploadData.append('productId', id);
-    // data.forEach(item => {
-    console.log(uploadData);
-    // });
-    // const token = this.authService.getToken();
     const token = 'token';
-    // const headers = new HttpHeaders({
-    //   "content-type": "multipart/form-data"
-    // });
     let headers = new HttpHeaders();
     headers.append('Accept', 'application/json');
 

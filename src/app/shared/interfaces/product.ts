@@ -1,5 +1,6 @@
 import { Category } from './category';
 import { Classification } from './classification';
+import { File } from './file';
 import { Status } from './status';
 import { User } from './user';
 
@@ -21,4 +22,5 @@ export interface Product {
     status:Status;
     classification: Classification;
     classificationID: number;
+    files: File[];
 }

@@ -1,32 +1,26 @@
-<p-carousel [value]="products" [numVisible]="3"  [circular]="true">
+<p-carousel [value]="products" [numVisible]="10" [circular]="true">
     <ng-template let-product pTemplate="item">
         <div class="product-item">
             <div class="product-item-content">
                 <div class="p-mb-3">
                 </div>
-                    <div>
-                        <h4 class="p-mb-1">{{product.name}}</h4>
+                <div>
+                    <h4 class="p-mb-1">{{product.name}}</h4>
 
-
-                        <h6 class="p-mt-0 p-mb-3">$ {{product.price}}</h6>
-                        <div>{{product.description}}</div>
-                        <!-- <div>{{product.createdAt}}</div> -->
-                        <div class="car-buttons p-mt-5">
-                            <button pButton type="button" label="Comprar" class="p-button-secondary"
-                                (click)="showDialog(product)"></button>
-                        </div>
+                    <a href="#" class="image featured"><img height="200px"
+                            [src]="product.image ? product.image : '../../../../assets/html5up-helios/images/pic01.jpg'"
+                            alt="" /></a>
+                    <h6 class="p-mt-0 p-mb-3">$ {{product.price}}</h6>
+                    <div>{{product.description}}</div>
+                    <!-- <div>{{product.createdAt}}</div> -->
+                    <div class="car-buttons p-mt-5">
+                        <!-- <button pButton type="button" label="Comprar" class="p-button-secondary"
+                                (click)="showDialog(product)"></button> -->
+                        <button pButton type="button" label="Agregar Al Carrito" class="p-button-secondary"
+                            (click)="addToCart(product)"></button>
                     </div>
+                </div>
             </div>
         </div>
     </ng-template>
 </p-carousel>
-<p-dialog header="Proceder al pago" [(visible)]="display" [style]="{height: '23vw', width: '60vw'}">    
-    <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
-        <div class="form-row">
-            <label for="card-info">Datos de la tarjeta</label>
-            <div id="card-info" #cardInfo></div>
-            <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
-        </div>
-        <button type="submit">Pagar</button>
-    </form>
-</p-dialog>

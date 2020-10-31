@@ -12,6 +12,7 @@ import {PanelModule} from 'primeng/panel';
 import {CardModule} from 'primeng/card';
 import {DialogModule} from 'primeng/dialog';
 import {FileUploadModule} from 'primeng/fileupload';
+import {ToastModule} from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -53,6 +54,9 @@ import { NewsComponent } from './pages/layout/news/news.component';
 import { ProductsSectionComponent } from './pages/layout/products-section/products-section.component';
 import { FooterComponent } from './pages/layout/footer/footer.component';
 import { HeaderComponent } from './pages/layout/header/header.component';
+import { ProductDetailComponent } from './pages/products/product-detail/product-detail.component';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -88,7 +92,9 @@ import { HeaderComponent } from './pages/layout/header/header.component';
     NewsComponent,
     ProductsSectionComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProductDetailComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
@@ -107,9 +113,10 @@ import { HeaderComponent } from './pages/layout/header/header.component';
     PanelModule,
     CardModule,
     DialogModule,
-    FileUploadModule
+    FileUploadModule,
+    ToastModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
