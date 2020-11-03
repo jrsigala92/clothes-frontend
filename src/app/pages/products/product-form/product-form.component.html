@@ -19,30 +19,36 @@
                 </span>
             </div>
             <div>
-                <p-dropdown [options]="categories"  [autoZIndex]="true" formControlName="categoryID" optionLabel="name"></p-dropdown>
-            </div>
-
-            <div>
-                <p-dropdown [options]="sizes"  [autoZIndex]="true" formControlName="sizeID" optionLabel="name"></p-dropdown>
-            </div>
-
-            <div>
-                <p-dropdown [options]="classifications"  [autoZIndex]="true" formControlName="classificationID" optionLabel="name">
+                <p-dropdown [options]="categories" [autoZIndex]="true" formControlName="categoryID" optionLabel="name">
                 </p-dropdown>
             </div>
 
             <div>
-                <p-dropdown [options]="users"  [autoZIndex]="true" formControlName="userID" optionLabel="email"></p-dropdown>
+                <p-dropdown [options]="sizes" [autoZIndex]="true" formControlName="sizeID" optionLabel="name">
+                </p-dropdown>
+            </div>
+
+            <div>
+                <p-dropdown [options]="classifications" [autoZIndex]="true" formControlName="classificationID"
+                    optionLabel="name">
+                </p-dropdown>
+            </div>
+
+            <div>
+                <p-dropdown [options]="users" [autoZIndex]="true" formControlName="userID" optionLabel="email">
+                </p-dropdown>
             </div>
         </div>
         <div class="p-col-6">
-            <!-- <p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="loadImages($event)" multiple="multiple">
+            <div *ngIf="product">
+                <!-- <p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="loadImages($event)" multiple="multiple">
             </p-fileUpload> -->
-            <input type="file" (change)="selectedImages($event)" multiple>
-            <div *ngFor="let image of images">
-                <img [src]="image" alt="" width="100px" height="100px">
+                <input type="file" (change)="selectedImages($event)" multiple>
+                <div *ngFor="let image of images">
+                    <img [src]="image" alt="" width="100px" height="100px">
+                </div>
+                <button type="button" (click)="uploadImages()">Cargar</button>
             </div>
-            <button type="button" (click)="uploadImages()">Cargar</button>
         </div>
 
         <button [disabled]="form.invalid">Guardar</button>

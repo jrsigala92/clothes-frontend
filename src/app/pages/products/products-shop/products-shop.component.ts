@@ -64,7 +64,7 @@ export class ProductsShopComponent implements OnInit {
 
   addToCart(product){
     // const shoppingCartElem = {product.id, 1};
-    this.shoppingCartService.insert({productId: product.id, userId: 1, price: product.price, name: product.name}).subscribe(res => {
+    this.shoppingCartService.insert({productId: product.id, userId: 9, price: product.price, name: product.name}).subscribe(res => {
       this.messageService.add({severity:'success', summary:'Producto', detail:'Producto agregado al carrito de compras'});
       console.log(res);
     }, 

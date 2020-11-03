@@ -29,7 +29,12 @@
                     <th>${{total}}</th>
                 </tr>
                 <tr>
-                    <th><button (click)="showDialog()">Pagar</button> <button>Pagar Con Crédito Charó</button></th>
+                    <th>
+                        <div *ngIf="shoppingCartElements.length > 0 ">
+                            <button (click)="showDialog()">Pagar</button>
+                            <button>Pagar Con Crédito Charó</button>
+                        </div>
+                    </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body">

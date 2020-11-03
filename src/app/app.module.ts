@@ -13,6 +13,7 @@ import {CardModule} from 'primeng/card';
 import {DialogModule} from 'primeng/dialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import {ToastModule} from 'primeng/toast';
+import {GalleriaModule} from 'primeng/galleria';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -114,7 +115,8 @@ import { MessageService } from 'primeng/api';
     CardModule,
     DialogModule,
     FileUploadModule,
-    ToastModule
+    ToastModule,
+    GalleriaModule
   ],
   providers: [DatePipe, MessageService],
   bootstrap: [AppComponent]

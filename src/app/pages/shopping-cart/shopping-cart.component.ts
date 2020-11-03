@@ -37,13 +37,9 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async getProductsWithinShoppingCart() {
-    await this.shoppingCartElemService.getAllFilteredById(1).subscribe(res => {
+    await this.shoppingCartElemService.getAllFilteredById(9).subscribe(res => {
       this.shoppingCartElements = res;
-      this.shoppingCartElements.forEach(item => {
-        // this.total = this.total + item.price;
-        this.total = this.total + Number.parseFloat(item.price);
-        console.log(this.total);
-      });
+      this.calculateTotal();
       console.log('respuesta');
       console.log(this.shoppingCartElements);
     });
@@ -58,7 +54,10 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async delete(id) {
     this.shoppingCartElemService.delete(id).subscribe(res => {
-      this.shoppingCartElements.splice(this.shoppingCartElements.indexOf({ id: id }));
+      this.shoppingCartElemService.getAllFilteredById(9).subscribe(elems => {
+        this.shoppingCartElements = elems;
+        this.calculateTotal();
+      });
     },
       error => {
         this.messageService.add({ severity: 'danger', summary: 'Service Message', detail: 'Via MessageService' });
@@ -68,6 +67,14 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit, OnDestroy {
   showDialog() {
     // this.productSelected = product;
     this.display = true;
+  }
+
+  calculateTotal() {
+    this.total = 0;
+    this.shoppingCartElements.forEach(item => {
+      this.total = this.total + Number.parseFloat(item.price);
+      console.log(this.total);
+    });
   }
 
   ngAfterViewInit() {
@@ -97,25 +104,41 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit, OnDestroy {
     const { token, error } = await this.stripe.createToken(this.card);
 
     if (error) {
-      
+
 
       console.log('Error:', error);
     } else {
-      this.productsService.buyWithStripe({ tokenId: token.id, productIds: [2,3], userId: 1 }).subscribe(res => {
-        this.display = false;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Compra realizada con éxito',
-          detail: 'En breve recibirás un correo de confirmación'
+      this.productsService.buyWithStripe(
+        {
+          tokenId: token.id,
+          productIds: this.shoppingCartElements.map(elem => elem.id),
+          userId: 9
+        }).subscribe(res => {
+          this.display = false;
+          if (res.errno) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error al procesar compra',
+              detail: `La compra no pudo ser procesada. Error:${res.message}`
+            });
+          }
+          else {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Compra realizada con éxito',
+            detail: 'En breve recibirás un correo de confirmación'
+          });
+          this.shoppingCartElements = [];
+          this.calculateTotal();
+        }
+      },
+        error => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al procesar compra',
+            detail: `La compra no pudo ser procesada. Error:${error.message}`
+          });
         });
-      }, 
-      error => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error al procesar compra',
-          detail: `La compra no pudo ser procesada. Error:${error.message}`
-        });
-      });
     }
   }
 }

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { FormErrorsService } from 'src/app/shared/services/form-errors.service';
 import { DatePipe } from '@angular/common';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { Product } from 'src/app/shared/interfaces/product';
 // import { error } from 'c onsole';
@@ -40,7 +40,8 @@ export class UserFormComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private formError: FormErrorsService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -109,19 +110,26 @@ export class UserFormComponent implements OnInit {
     const user = this.form.getRawValue();
     console.log(user);
     this.userService.save(user).subscribe(response => {
-      console.log('se guardo correctamente');
-    },
-      err => {
-        console.error(err);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Éxito',
+        detail: 'Usuario agregado con éxito'
       });
-    console.log('Guardar Usuario', user);
+      this.router.navigate(['..'], {
+        relativeTo: this.activatedRoute,
+        queryParams: {
+          success: true
+        }
+      });
+    },
+      err => {        
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err
+        });
+      });
     // mostrar modal
-    this.router.navigate(['..'], {
-      relativeTo: this.activatedRoute,
-      queryParams: {
-        success: true
-      }
-    });
   }
 
   validateSubmit(e) {

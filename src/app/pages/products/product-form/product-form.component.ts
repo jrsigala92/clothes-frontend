@@ -13,6 +13,7 @@ import { ClassificationService } from 'src/app/shared/services/classification.se
 import { SizeService } from 'src/app/shared/services/size.service';
 import { Size } from 'src/app/shared/interfaces/size';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-product-form',
@@ -47,7 +48,8 @@ export class ProductFormComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private formError: FormErrorsService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -173,6 +175,12 @@ export class ProductFormComponent implements OnInit {
     const user = this.form.getRawValue();
     console.log(user);
     this.productsService.save(user).subscribe(response => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Éxito',
+        detail: 'Producto agregado con éxito'
+      });
+
       this.router.navigate(['..'], {
         relativeTo: this.activatedRoute,
         queryParams: {
@@ -181,7 +189,12 @@ export class ProductFormComponent implements OnInit {
       });
     },
       err => {
-        console.error(err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err
+        });
+        // console.error(err);
       });
     console.log('Guardar Usuario', user);
     // mostrar modal

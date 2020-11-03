@@ -24,6 +24,7 @@ import { SizesListComponent } from './pages/sizes/sizes-list/sizes-list.componen
 import { SizeFormComponent } from './pages/sizes/size-form/size-form.component';
 import { SizesComponent } from './pages/sizes/sizes.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { ProductDetailComponent } from './pages/products/product-detail/product-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -39,7 +40,11 @@ const routes: Routes = [
     {path: '', component: ProductsListComponent},
     {path: 'shop', component: ProductsShopComponent},
     {path: 'create', component: ProductFormComponent},
-    {path: ':productId', component: ProductFormComponent}
+    {path: ':productId', component: ProductFormComponent},
+  ]},
+  {path: 'productDetail', component: ProductDetailComponent, children:
+  [
+    {path: ':productId', component: ProductDetailComponent},
   ]},
   {path: 'categories', component: CategoriesComponent, children:
   [
