@@ -173,6 +173,7 @@ export class ProductFormComponent implements OnInit {
     this.formSubmitted = true;
     console.log('guardando');
     const user = this.form.getRawValue();
+    user.displayInShop = true;
     console.log(user);
     this.productsService.save(user).subscribe(response => {
       this.messageService.add({

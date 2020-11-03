@@ -96,7 +96,6 @@ export class UserFormComponent implements OnInit {
       relativeTo: this.activatedRoute
     });
   }
-
   withdraw() {
     Conekta.Token.create('',
       () => { console.log(''); },

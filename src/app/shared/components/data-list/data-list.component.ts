@@ -34,7 +34,6 @@ export class DataListComponent implements OnInit {
   }
 
   deleteItem(item){
-    console.log('A borrar', item);
     this.onItemDelete.emit(item);
   }
 

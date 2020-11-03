@@ -5,6 +5,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { StatusService } from 'src/app/shared/services/status.service';
 import { DatePipe } from '@angular/common';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-products-list',
@@ -42,7 +43,8 @@ export class ProductsListComponent implements OnInit {
     private productsService: ProductService,
     private categoriesService: CategoryService,
     private statusesService: StatusService,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe,
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.getCategories();
@@ -110,10 +112,20 @@ export class ProductsListComponent implements OnInit {
    async handleProductDelete(product: Product){
     await this.productsService.delete(product.id).subscribe((response) => {
       console.log(response);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Éxito',
+        detail: 'Producto eliminado con éxito'
+      });
       this.productsService.getAll().subscribe( (x) => {
         this.products = x;
       });
     }, (err) => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: err
+      });
       console.error(err);
     });
   }
