@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ClassificationService } from 'src/app/shared/services/classification.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormErrorsService } from 'src/app/shared/services/form-errors.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-classification-form',
@@ -21,7 +22,8 @@ export class ClassificationFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private formError: FormErrorsService) {
+    private formError: FormErrorsService,
+    private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -63,6 +65,11 @@ export class ClassificationFormComponent implements OnInit {
     this.formSubmitted = true;
     const user = this.form.getRawValue();
     await this.classificationsService.save(user).subscribe(response => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Éxito',
+        detail: 'Clasificación agregada con éxito'
+      });
       this.router.navigate(['..'], {
         relativeTo: this.activatedRoute,
         queryParams: {
@@ -71,6 +78,11 @@ export class ClassificationFormComponent implements OnInit {
       });
     },
       err => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.message
+        });
         console.error(err);
       });
     // mostrar modal

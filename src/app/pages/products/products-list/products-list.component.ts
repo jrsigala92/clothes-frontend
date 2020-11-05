@@ -117,9 +117,7 @@ export class ProductsListComponent implements OnInit {
         summary: 'Éxito',
         detail: 'Producto eliminado con éxito'
       });
-      this.productsService.getAll().subscribe( (x) => {
-        this.products = x;
-      });
+      this.getProducts();
     }, (err) => {
       this.messageService.add({
         severity: 'error',

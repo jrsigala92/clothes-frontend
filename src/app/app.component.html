@@ -1,6 +1,9 @@
-<app-menu></app-menu>
-<app-header></app-header>
-<app-news></app-news>
-<app-products-section></app-products-section>
-<app-footer></app-footer>
+<app-menu (shoppingCartElemAdded)="handleShoppingCartElem($event)"></app-menu>
+<br />
+<br />
+<br />
+<br />
+<router-outlet></router-outlet>
+
+
 <p-toast></p-toast>

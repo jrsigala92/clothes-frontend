@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { Product } from 'src/app/shared/interfaces/product';
@@ -14,6 +14,8 @@ import { MessageService } from 'primeng/api';
 export class ProductsShopComponent implements OnInit {
 
   @ViewChild('cardInfo', { static: false }) cardInfo: ElementRef;
+
+  @Output() shoppingCartElemAdded: EventEmitter<any> = new EventEmitter();
 
   loading = false;
   confirmation;
@@ -64,11 +66,15 @@ export class ProductsShopComponent implements OnInit {
 
   addToCart(product){
     // const shoppingCartElem = {product.id, 1};
-    this.shoppingCartService.insert({productId: product.id, userId: 9, price: product.price, name: product.name}).subscribe(res => {
-      this.messageService.add({severity:'success', summary:'Producto', detail:'Producto agregado al carrito de compras'});
-      console.log(res);
-    }, 
-    err => {
+    this.shoppingCartService.insert({ productId: product.id, userId: 9, price: product.price, name: product.name }).subscribe(res => {
+      this.messageService.add({ severity: 'success', summary: 'Producto', detail: 'Producto agregado al carrito de compras' });
+
+      console.log('emmit');
+      this.shoppingCartElemAdded.emit(1);
+      console.log('event emmited');
+      // console.log(res);
+    },
+      err => {
       this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
     });
   }

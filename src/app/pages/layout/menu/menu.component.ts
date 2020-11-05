@@ -17,5 +17,10 @@ export class MenuComponent implements OnInit {
   logout(){
     localStorage.removeItem('token');
   }
+  
+  handleShoppingCartElem(elem: number){
+    console.log('event emmited');
+    console.log(elem);
+  }
 
 }

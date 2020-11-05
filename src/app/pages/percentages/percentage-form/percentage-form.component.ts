@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PercentageService } from 'src/app/shared/services/percentage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormErrorsService } from 'src/app/shared/services/form-errors.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-percentage-form',
@@ -21,7 +22,8 @@ export class PercentageFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private formError: FormErrorsService) {
+    private formError: FormErrorsService,
+    private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -65,9 +67,19 @@ export class PercentageFormComponent implements OnInit {
     const user = this.form.getRawValue();
     console.log(user);
     this.percentagesService.save(user).subscribe(response => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Éxito',
+        detail: 'Porcentaje guardado con éxito'
+      });
       console.log('se guardo correctamente');
     },
       err => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.message
+        });
         console.error(err);
       });
     console.log("Guardar Usuario", user);

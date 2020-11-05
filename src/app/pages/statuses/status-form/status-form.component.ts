@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Status } from 'src/app/shared/interfaces/status';
 import { FormErrorsService } from 'src/app/shared/services/form-errors.service';
 import { StatusService } from 'src/app/shared/services/status.service';
@@ -21,7 +22,8 @@ export class StatusFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private formError: FormErrorsService) {
+    private formError: FormErrorsService,
+    private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -31,7 +33,7 @@ export class StatusFormComponent implements OnInit {
     });
 
     this.form = this.fb.group({
-      // id:[''],
+      id:[''],
       name: ['', [Validators.required]],
       description: ['']
     });
@@ -65,19 +67,29 @@ export class StatusFormComponent implements OnInit {
     const user = this.form.getRawValue();
     console.log(user);
     this.statusesService.save(user).subscribe(response => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Éxito',
+        detail: 'Estatus guardado con éxito'
+      });
+      this.router.navigate(['..'], {
+        relativeTo: this.activatedRoute,
+        queryParams: {
+          success:true
+        }
+      });
       console.log('se guardo correctamente');
     },
       err => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.message
+        });
         console.error(err);
       });
     console.log("Guardar Usuario", user);
     // mostrar modal
-    this.router.navigate(['..'], {
-      relativeTo: this.activatedRoute,
-      queryParams: {
-        success:true
-      }
-    });
   }
   validateSubmit(e) {
     if (e.key === 'Enter') {

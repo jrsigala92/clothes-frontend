@@ -58,6 +58,7 @@ import { HeaderComponent } from './pages/layout/header/header.component';
 import { ProductDetailComponent } from './pages/products/product-detail/product-detail.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { MessageService } from 'primeng/api';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { MessageService } from 'primeng/api';
     FooterComponent,
     HeaderComponent,
     ProductDetailComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
