@@ -8,6 +8,15 @@ import { DatePipe } from '@angular/common';
 import { MessageService, SelectItem } from 'primeng/api';
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { Product } from 'src/app/shared/interfaces/product';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { Status } from 'src/app/shared/interfaces/status';
+import { Classification } from 'src/app/shared/interfaces/classification';
+import { Size } from 'src/app/shared/interfaces/size';
+import { Category } from 'src/app/shared/interfaces/category';
+import { CategoryService } from 'src/app/shared/services/category.service';
+import { ClassificationService } from 'src/app/shared/services/classification.service';
+import { SizeService } from 'src/app/shared/services/size.service';
+import { StatusService } from 'src/app/shared/services/status.service';
 // import { error } from 'c onsole';
 
 // declare function setPublicKey(key: any): any;
@@ -28,26 +37,41 @@ export class UserFormComponent implements OnInit {
   isLoading: boolean;
   accountTypes: SelectItem[];
   display = false;
+  displayProduct = false;
   form: FormGroup;
   formSubmitted: boolean;
   selectedAccountType: string;
   enteredAccount: string;
   quantityToWithdraw: number;
+  userId:number;
+
+  // products
+  productForm: FormGroup;
+  categories: Category[];
+  statuses: Status[];
+  classifications: Classification[];
+  sizes: Size[];
 
   constructor(
+    private productsService: ProductService,
     private userService: UserService,
+    private categoriesService: CategoryService,
+    private classificationsService: ClassificationService,
+    private sizesService: SizeService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private formError: FormErrorsService,
     private datePipe: DatePipe,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private productService: ProductService,
+    private statusService: StatusService) {
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(urlParams => {
-      console.log(urlParams);
-      this.getUser(urlParams.userId);
+      this.userId = urlParams.userId;
+      this.getUser(this.userId);
     });
 
     this.accountTypes = [
@@ -67,6 +91,17 @@ export class UserFormComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
     });
+    
+  this.productForm = this.fb.group({
+    id: [''],
+    name: ['', [Validators.required]],
+    description: [''],
+    sizeID: ['', [Validators.required]],
+    categoryID: ['', [Validators.required]],
+    classificationID: ['', [Validators.required]],
+    statusID: ['', [Validators.required]],
+    price: ['']
+  });
   }
 
   showDialog() {
@@ -76,9 +111,11 @@ export class UserFormComponent implements OnInit {
     this.isLoading = true;
     this.userService.getElement(id).subscribe((response) => {
       this.user = response;
-      this.user?.products.forEach(e => {
+      this.user?.products.forEach(async e => {
         e.categoryName = e.category ? e.category.name : null;
-        e.statusName = e.name === 'Camisa' ? 'Vendido' : 'Disponible';
+        await this.productService.getElement(e.id).subscribe(r =>
+          e.statusName = r.status ? r.status.name : null);
+        // e.statusName = e.status ? e.status.name : null;
         e.createdAtFormated = this.datePipe.transform(e.createdAt, 'dd-MM-yyyy');
         e.createdAt = new Date(e.createdAt);
       });
@@ -114,6 +151,8 @@ export class UserFormComponent implements OnInit {
         summary: 'Éxito',
         detail: 'Usuario agregado con éxito'
       });
+      
+      this.getUser(this.userId);
       this.router.navigate(['..'], {
         relativeTo: this.activatedRoute,
         queryParams: {
@@ -141,5 +180,87 @@ export class UserFormComponent implements OnInit {
     console.log(controlName);
     console.log(this.formError.getErrorMessage(controlName));
     return this.formError.getErrorMessage(controlName);
+  }
+  displayDialog(){
+    this.getCategories();
+    this.getClassifications();
+    this.getSizes();
+    this.getStatuses();
+    this.displayProduct = true;
+  }
+
+  // 
+  // product section
+  
+  defaultDropdownCategory: Category = { id: 0, name: 'Seleccionar Categoría' };
+  defaultDropdownUser: User = { id: 0, email: 'Seleccionar Usuario' };
+  defaultDropdownClassification: Classification = { id: 0, name: 'Seleccionar Clasificación' };
+  defaultDropdownSize: Size = { id: 0, name: 'Seleccionar Talla' };
+  defaultDropdownStatus: Status = { id: 0, name: 'Seleccionar Status', description: 'description' };
+  
+  async getCategories() {
+    this.categoriesService.getAll().subscribe(response => {
+      this.categories = response;
+      this.categories.unshift(this.defaultDropdownCategory);
+      console.log(this.categories);
+    }, (err) => {
+      console.error(err);
+    });
+  }
+
+  async getStatuses() {
+    this.statusService.getAll().subscribe(response => {
+      this.statuses = response;
+      this.statuses.unshift(this.defaultDropdownStatus);
+    }, (err) => {
+      console.error(err);
+    });
+  }
+
+  async getClassifications() {
+    this.classificationsService.getAll().subscribe(response => {
+      this.classifications = response;
+      this.classifications.unshift(this.defaultDropdownClassification);
+    }, (err) => {
+      console.error(err);
+    });
+  }
+
+  async getSizes() {
+    this.sizesService.getAll().subscribe(response => {
+      this.sizes = response;
+      this.sizes.unshift(this.defaultDropdownSize);
+    }, (err) => {
+      console.error(err);
+    });
+  }
+
+  saveProduct() {
+    this.formSubmitted = true;
+    console.log('guardando');
+    const user = this.productForm.getRawValue();
+    user.userID = {id: this.userId, name:''};
+    user.displayInShop = true;
+    console.log(user);
+    this.productsService.save(user).subscribe(response => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Éxito',
+        detail: 'Producto agregado con éxito'
+      });
+      this.getUser(this.userId);
+      this.displayProduct = false;
+    },
+      err => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err
+        });
+        // console.error(err);
+      });
+    console.log('Guardar Usuario', user);
+    // mostrar modal
+
   }
 }

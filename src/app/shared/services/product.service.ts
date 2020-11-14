@@ -21,6 +21,10 @@ export class ProductService extends CrudService {
     return this.httpService.getWithParamsObject(this.apiUrl + 'files' +`/${name}`);
   }
 
+  getWithImages(id: number):Observable<any>{
+    return this.httpService.get(this.apiUrl + this.endpoint + '/getWithImages' +`/${name}`);
+  }
+
   buyWithStripe(data: any): Observable<any> {
     console.log(data);
     // return this.httpService.post(this.apiUrl + this.endpoint + '/buy', data);

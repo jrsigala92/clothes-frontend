@@ -25,6 +25,7 @@ import { SizeFormComponent } from './pages/sizes/size-form/size-form.component';
 import { SizesComponent } from './pages/sizes/sizes.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { ProductDetailComponent } from './pages/products/product-detail/product-detail.component';
+import { CanActivateViaAuthGuardGuard } from './can-activate-via-auth-guard.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -34,14 +35,14 @@ const routes: Routes = [
     {path: '', component: UsersListComponent},
     {path: 'create', component: UserFormComponent},
     {path: ':userId', component: UserFormComponent}
-  ]},
+  ], canActivate: [CanActivateViaAuthGuardGuard] },
   {path: 'products', component: UsersComponent, children:
   [
     {path: '', component: ProductsListComponent},
     {path: 'shop', component: ProductsShopComponent},
     {path: 'create', component: ProductFormComponent},
     {path: ':productId', component: ProductFormComponent},
-  ]},
+  ],  canActivate: [CanActivateViaAuthGuardGuard] },
   {path: 'productDetail', component: ProductDetailComponent, children:
   [
     {path: ':productId', component: ProductDetailComponent},
@@ -50,27 +51,27 @@ const routes: Routes = [
   [
     {path: '', component: CategoriesListComponent},
     {path: ':categoryId', component: CategoryFormComponent}
-  ]},
+  ], canActivate: [CanActivateViaAuthGuardGuard] },
   {path: 'classifications', component: ClassificationsComponent, children:
   [
     {path: '', component: ClassificationsListComponent},
     {path: ':classificationId', component: ClassificationFormComponent}
-  ]},
+  ], canActivate: [CanActivateViaAuthGuardGuard] },
   {path: 'sizes', component: SizesComponent, children:
   [
     {path: '', component: SizesListComponent},
     {path: ':sizeId', component: SizeFormComponent}
-  ]},
+  ], canActivate: [CanActivateViaAuthGuardGuard]},
   {path: 'percentages', component: PercentagesComponent, children:
   [
     {path: '', component: PercentagesListComponent},
     {path: ':percentageId', component: PercentageFormComponent}
-  ]},
+  ], canActivate: [CanActivateViaAuthGuardGuard]},
   {path: 'statuses', component: StatusesComponent, children:
   [
     {path: '', component: StatusesListComponent},
     {path: ':statusId', component: StatusFormComponent}
-  ]},
+  ], canActivate: [CanActivateViaAuthGuardGuard]},
   {path: 'shoppingCart', component: ShoppingCartComponent, children:
   [
     {path: ':userId', component: ShoppingCartComponent},

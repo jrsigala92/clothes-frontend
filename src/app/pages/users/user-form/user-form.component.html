@@ -49,16 +49,23 @@
                         {{form.controls.address.errors.required ? getErrorMessage('required') : getErrorMessage('address')}}
                     </span>
                 </div>
-                <div class="p-field p-col-8 p-md-2">
+                <div class="p-field p-col-8 p-md-1">
                     <div class="p-text-right"></div>
-                    <label style="visibility:hidden">Dirección:</label><br />
+                    <label style="visibility:hidden">Guardar:</label><br />
                     <button pButton type="button" label="Guardar" class="p-button-success" (click)="saveUser()"
                         [disabled]="form.invalid"></button>
                     <!-- <button pButton type="button" label="Regresar" class="p-button-secondary" (click)="goBack()"></button> -->
                 </div>
                 <div class="p-field p-col-8 p-md-2">
                     <div class="p-text-right"></div>
-                    <label style="visibility:hidden">Dirección:</label><br />
+                    <label style="visibility:hidden">agregar:</label><br />
+                    <!-- <button pButton type="button" label="Guardar" class="p-button-success" [disabled]="form.invalid"></button> -->
+                    <button pButton type="button" label="Agregar Producto" class="p-button-secondary"
+                        (click)="displayDialog()"></button>
+                </div>
+                <div class="p-field p-col-8 p-md-1">
+                    <div class="p-text-right"></div>
+                    <label style="visibility:hidden">Atrás:</label><br />
                     <!-- <button pButton type="button" label="Guardar" class="p-button-success" [disabled]="form.invalid"></button> -->
                     <button pButton type="button" label="Regresar" class="p-button-secondary"
                         (click)="goBack()"></button>
@@ -105,7 +112,54 @@
         </p-panel>
     </div>
     <p *ngIf="isLoading">Cargando...</p>
-
+    <p-dialog header="Agregar Producto" [(visible)]="displayProduct" [style]="{height: '60vw', width: '45vw'}">
+        <form [formGroup]="productForm" (submit)="saveProduct()">
+            <div class="p-grid">
+                <div class="p-col-6">
+                    <div>
+                        <input type="text" name="nombre" formControlName="name" placeholder="Nombre" pInputText />
+                        <span *ngIf="productForm.controls.name.errors && productForm.controls.name.dirty">
+                            {{getErrorMessage('required')}}
+                        </span>
+                    </div>
+                    <div>
+                        <input type="text" name="descriptionName" formControlName="description" placeholder="Descripcion"
+                            pInputText />
+                    </div>
+                    <div>
+                        <input type="text" name="price" formControlName="price" placeholder="Precio: $0.0" pInputText />
+                        <span *ngIf="productForm.controls.price.errors && productForm.controls.price.dirty">
+                            {{getErrorMessage('required')}}
+                        </span>
+                    </div>
+                    <div>
+                        <p-dropdown [options]="categories" [autoZIndex]="true" formControlName="categoryID" optionLabel="name">
+                        </p-dropdown>
+                    </div>
+        
+                    <div>
+                        <p-dropdown [options]="sizes" [autoZIndex]="true" formControlName="sizeID" optionLabel="name">
+                        </p-dropdown>
+                    </div>
+        
+                    <div>
+                        <p-dropdown [options]="classifications" [autoZIndex]="true" formControlName="classificationID"
+                            optionLabel="name">
+                        </p-dropdown>
+                    </div>
+        
+                    <div>
+                        <p-dropdown [options]="statuses" [autoZIndex]="true" formControlName="statusID"
+                            optionLabel="name">
+                        </p-dropdown>
+                    </div>      
+                    <div>
+                        <button [disabled]="productForm.invalid">Guardar</button>
+                    </div>  
+                </div>
+            </div>
+        </form>
+    </p-dialog>
     <p-dialog header="Retiro de Efectivo" [(visible)]="display" [style]="{height: '23vw'}">
         <!-- <label>Tipo de Cuenta:</label>    
     <div>

@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { ShoppingCartElemService } from 'src/app/shared/services/shopping-cart-elem.service';
 import { Product } from 'src/app/shared/interfaces/product';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { SharedService } from 'src/app/shared/services/shared-service';
 
 @Component({
   selector: 'app-shopping-cart',

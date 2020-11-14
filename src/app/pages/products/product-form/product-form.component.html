@@ -35,6 +35,12 @@
             </div>
 
             <div>
+                <p-dropdown [options]="statuses" [autoZIndex]="true" formControlName="statusID"
+                    optionLabel="name">
+                </p-dropdown>
+            </div>
+
+            <div>
                 <p-dropdown [options]="users" [autoZIndex]="true" formControlName="userID" optionLabel="email">
                 </p-dropdown>
             </div>

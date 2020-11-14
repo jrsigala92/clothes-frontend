@@ -29,7 +29,6 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
     this.getProducts();
   }
-
   ngAfterViewInit() {
     import('../../../assets/js/jquery.min.js');
     import('../../../assets/js/jquery.min.js');

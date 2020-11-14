@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { GalleryItem, ImageItem } from 'ng-gallery';
 import { Product } from 'src/app/shared/interfaces/product';
 import { ProductService } from 'src/app/shared/services/product.service';
 
@@ -13,7 +14,7 @@ export class ProductDetailComponent implements OnInit {
 
   product: Product;
   isLoading: boolean;
-  images: any[] = [];
+  images: GalleryItem[]=[];
   
   constructor(
       private productsService: ProductService,
@@ -22,30 +23,42 @@ export class ProductDetailComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {    
-    this.activatedRoute.params.subscribe(urlParams => {
-      console.log(urlParams);
+    this.activatedRoute.params.subscribe(async urlParams => {
+      console.log('antes');
       // this.getProduct(urlParams.productId);
-      this.getProduct(2);
+      await this.getProduct(2);
+      // await this.productsService.getWithImages(2).subscribe(res =>{ 
+      //   console.log(res);
+      //   this.product = res.prod;
+      //   this.images = res.images;
+        
+      // });
+      console.log('despues');
+
     });
   }
   async getProduct(id: number) {
     this.isLoading = true;
 
-    await this.productsService.getElement(id).subscribe((response) => {
+     this.productsService.getElement(id).subscribe(async (response) => {
       this.product = response;
       this.isLoading = false;
       console.log(response);
       this.product.files.forEach(img => {
-        // this.images.push(this.productsService.getImage(img.name));
-        this.productsService.getImage(img.name).subscribe(imgresponse => {
-          console.log(imgresponse);
-          let objectUrl = URL.createObjectURL(imgresponse);
-          this.images.push(this.sanitizer.bypassSecurityTrustUrl(objectUrl));
-        }, 
-        error=>{
-          console.log(error);
-        });
-      });
+         // this.images.push(this.productsService.getImage(img.name));
+         this.productsService.getImage(img.name).subscribe(imgresponse => {
+           console.log(imgresponse);
+           let objectUrl = URL.createObjectURL(imgresponse);
+           this.images.push(new ImageItem({
+             src: objectUrl,
+            //  alt: '',
+            //  title: ''
+           }));
+         },
+           error => {
+             console.log(error);
+           });
+       });
       console.log(this.product.files);
       console.log(this.images);
     }, (err) => {

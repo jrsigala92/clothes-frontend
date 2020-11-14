@@ -14,6 +14,8 @@ import { SizeService } from 'src/app/shared/services/size.service';
 import { Size } from 'src/app/shared/interfaces/size';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
+import { StatusService } from 'src/app/shared/services/status.service';
+import { Status } from 'src/app/shared/interfaces/status';
 
 @Component({
   selector: 'app-product-form',
@@ -24,6 +26,7 @@ import { MessageService } from 'primeng/api';
 export class ProductFormComponent implements OnInit {
   @Input() product: Product;
   categories: Category[];
+  statuses: Status[];
   users: User[];
   classifications: Classification[];
   sizes: Size[];
@@ -37,6 +40,7 @@ export class ProductFormComponent implements OnInit {
   defaultDropdownUser: User = { id: 0, email: 'Seleccionar Usuario' };
   defaultDropdownClassification: Classification = { id: 0, name: 'Seleccionar Clasificación' };
   defaultDropdownSize: Size = { id: 0, name: 'Seleccionar Talla' };
+  defaultDropdownStatus: Status = { id: 0, name: 'Seleccionar Status', description: 'description' };
 
   constructor(
     private productsService: ProductService,
@@ -49,7 +53,8 @@ export class ProductFormComponent implements OnInit {
     private fb: FormBuilder,
     private formError: FormErrorsService,
     private sanitizer: DomSanitizer,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private statusService: StatusService) {
   }
 
   ngOnInit() {
@@ -65,6 +70,7 @@ export class ProductFormComponent implements OnInit {
       sizeID: ['', [Validators.required]],
       categoryID: ['', [Validators.required]],
       classificationID: ['', [Validators.required]],
+      statusID: ['', [Validators.required]],
       userID: ['', [Validators.required]],
       price: ['']
     });
@@ -76,6 +82,7 @@ export class ProductFormComponent implements OnInit {
     this.getUsers();
     this.getClassifications();
     this.getSizes();
+    this.getStatuses();
 
     await this.productsService.getElement(id).subscribe((response) => {
       this.product = response;
@@ -86,6 +93,7 @@ export class ProductFormComponent implements OnInit {
       this.form.controls.userID.setValue(this.product.user);
       this.form.controls.classificationID.setValue(this.product.classification);
       this.form.controls.sizeID.setValue(this.product.size);
+      this.form.controls.statusID.setValue(this.product.status);
       this.product.files.forEach(img => {
         // this.images.push(this.productsService.getImage(img.name));
         this.productsService.getImage(img.name).subscribe(imgresponse => {
@@ -111,6 +119,15 @@ export class ProductFormComponent implements OnInit {
       this.categories = response;
       this.categories.unshift(this.defaultDropdownCategory);
       console.log(this.categories);
+    }, (err) => {
+      console.error(err);
+    });
+  }
+
+  async getStatuses() {
+    this.statusService.getAll().subscribe(response => {
+      this.statuses = response;
+      this.statuses.unshift(this.defaultDropdownStatus);
     }, (err) => {
       console.error(err);
     });

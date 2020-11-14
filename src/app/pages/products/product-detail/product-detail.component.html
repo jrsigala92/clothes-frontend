@@ -1,8 +1,26 @@
-<p-galleria [value]="images">
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item" [alt]="item" />
-    </ng-template>
-</p-galleria>
+<div class="p-grid">
+    <div class="p-col"></div>
+    <div class="p-col-4">
+        <!-- <div *ngFor="let item">
+        <img [src]="item" />
+    </div> -->
+        <!-- <p-galleria [value]="images">
+            <ng-template let-item pTemplate="item">
+                <img [src]="item" />
+            </ng-template>
+        </p-galleria> -->
+        <gallery [items]="images"></gallery>
+    </div>
+    <div class="p-col-4">
+        <div *ngIf="product">
+            <h3>{{product.name}}</h3>
+            <p>{{product.price}}</p>
+            <p>{{product.description}}</p>
+            <!-- <tr>{{product.name}}</tr>> -->
+        </div>
+    </div>
+    <div class="p-col"></div>
+</div>
 <!-- <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"> 
     <ng-template pTemplate="item" let-item>
         <img [src]="item" style="width: 100%;" />

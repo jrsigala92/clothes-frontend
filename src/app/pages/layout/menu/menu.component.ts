@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/authentication/shared/services/authentication.service';
+import { CanActivateViaAuthGuardGuard } from 'src/app/can-activate-via-auth-guard.guard';
+import { SharedService } from 'src/app/shared/services/shared-service';
+import { ShoppingCartElemService } from 'src/app/shared/services/shopping-cart-elem.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,12 +12,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  loggedUser: string;
-  constructor() { }
+  loggedUserName:string;
+  shoppingCartElements:number;
 
+  loggedUser: string;
+  constructor(
+    private autService: AuthenticationService,
+    private router: Router,    
+    public guard: CanActivateViaAuthGuardGuard,
+    private sharedService: SharedService,
+    private shoppingCartService: ShoppingCartElemService
+  ) { }
+  logged: boolean = false;
   ngOnInit(): void {
-    this.loggedUser = localStorage.getItem('token');
-    console.log(this.loggedUser);
+    this.sharedService.sharedMessage.subscribe(message => this.loggedUserName = message);
+    this.sharedService.sharedShoppingCartElems.subscribe(message => this.shoppingCartElements = message);
+
+    if (!this.guard.canActivate()){
+        this.router.navigate(['welcome']);
+      }
+      else{
+        this.newLoggedUser(this.autService.getToken());
+        this.shoppingCartService.getAllFilteredById(9).subscribe(res => {
+          this.getShoppingCartElements(res.length);
+        });
+        
+        this.shoppingCartElements;
+        this.logged = true;
+      }
   }
   logout(){
     localStorage.removeItem('token');
@@ -23,4 +50,11 @@ export class MenuComponent implements OnInit {
     console.log(elem);
   }
 
+  newLoggedUser(name) {
+    this.sharedService.loggedUserName(name);
+  }
+
+  getShoppingCartElements(elementsNumber) {
+    this.sharedService.shoppingCartElements(elementsNumber);
+  }
 }

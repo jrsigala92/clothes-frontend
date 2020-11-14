@@ -5,6 +5,7 @@ import { Product } from 'src/app/shared/interfaces/product';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ShoppingCartElemService } from 'src/app/shared/services/shopping-cart-elem.service';
 import { MessageService } from 'primeng/api';
+import { SharedService } from 'src/app/shared/services/shared-service';
 
 @Component({
   selector: 'app-products-shop',
@@ -13,6 +14,7 @@ import { MessageService } from 'primeng/api';
 })
 export class ProductsShopComponent implements OnInit {
 
+  shoppingCartElements:number;
   @ViewChild('cardInfo', { static: false }) cardInfo: ElementRef;
 
   @Output() shoppingCartElemAdded: EventEmitter<any> = new EventEmitter();
@@ -27,11 +29,13 @@ export class ProductsShopComponent implements OnInit {
     private productsService: ProductService,
     private sanitizer: DomSanitizer,
     private shoppingCartService: ShoppingCartElemService,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private sharedService: SharedService) { }
 
 
   ngOnInit(): void {
     this.getProducts();
+    this.sharedService.sharedShoppingCartElems.subscribe(message => this.shoppingCartElements = message);
   }
 
   getProducts() {
@@ -68,14 +72,16 @@ export class ProductsShopComponent implements OnInit {
     // const shoppingCartElem = {product.id, 1};
     this.shoppingCartService.insert({ productId: product.id, userId: 9, price: product.price, name: product.name }).subscribe(res => {
       this.messageService.add({ severity: 'success', summary: 'Producto', detail: 'Producto agregado al carrito de compras' });
-
-      console.log('emmit');
-      this.shoppingCartElemAdded.emit(1);
-      console.log('event emmited');
+      this.shoppingCartService.getAllFilteredById(9).subscribe(res => {
+        this.getShoppingCartElements(res.length);
+      });
       // console.log(res);
     },
       err => {
       this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
     });
+  }
+  getShoppingCartElements(elementsNumber) {
+    this.sharedService.shoppingCartElements(elementsNumber);
   }
 }

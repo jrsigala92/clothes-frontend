@@ -15,6 +15,8 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {ToastModule} from 'primeng/toast';
 import {GalleriaModule} from 'primeng/galleria';
 
+import { GalleryModule } from 'ng-gallery';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DataListComponent } from './shared/components/data-list/data-list.component';
@@ -109,6 +111,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     CarouselModule,
+    GalleriaModule,
     TableModule,
     DropdownModule,
     CalendarModule,
@@ -118,7 +121,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
     DialogModule,
     FileUploadModule,
     ToastModule,
-    GalleriaModule
+    GalleryModule
   ],
   providers: [DatePipe, MessageService],
   bootstrap: [AppComponent]
