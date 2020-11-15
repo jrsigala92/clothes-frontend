@@ -22,6 +22,7 @@ export class ProductsListComponent implements OnInit {
   es: any;
 
   columns = [
+    {title: 'Identificador', field: 'id'},
     {title: 'Nombre', field: 'name'},
     {title: 'Descripción', field: 'description'},
     {title: 'Precio', field: 'price'},

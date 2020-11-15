@@ -85,6 +85,7 @@
             <p-table [value]="user.products">
                 <ng-template pTemplate="header">
                     <tr>
+                        <th>Identificador</th>
                         <th>Nombre</th>
                         <th>Descripcion</th>
                         <th>Precio</th>
@@ -97,6 +98,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
                     <tr>
+                        <td>{{rowData.id}}</td>
                         <td>{{rowData.name}}</td>
                         <td>{{rowData.description}}</td>
                         <td>{{rowData.price}}</td>
